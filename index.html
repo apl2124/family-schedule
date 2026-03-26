@@ -3,446 +3,419 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Allie & Miguel Family Schedule</title>
+<title>Allie & Miguel Family Dashboard</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'DM Sans', sans-serif; background: #F7F5F0; color: #1A1714; }
-  .page-header { background: #1A1714; color: #F7F5F0; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; }
-  .page-header h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.3px; }
-  .page-header .subtitle { font-size: 13px; opacity: 0.6; margin-top: 2px; }
-  .week-section { padding: 20px 16px 0; }
-  .week-label { font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: #888; margin-bottom: 10px; }
-  .grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin-bottom: 24px; }
-  .day-col { background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.07); }
-  .day-header { background: #1A1714; color: #F7F5F0; padding: 8px 8px 6px; text-align: center; }
-  .day-header .dow { font-size: 10px; font-weight: 500; opacity: 0.6; text-transform: uppercase; letter-spacing: 0.8px; }
-  .day-header .date { font-size: 18px; font-weight: 700; line-height: 1; }
-  .day-header .month { font-size: 9px; font-weight: 500; opacity: 0.5; text-transform: uppercase; letter-spacing: 0.6px; }
-  .day-header.today { background: #4A3FBF; }
-  .pinned-strip { padding: 4px 5px; border-bottom: 1px solid #F0EDE8; background: #FAFAF8; min-height: 4px; }
-  .pin-item { font-size: 9.5px; font-weight: 600; border-radius: 4px; padding: 2px 5px; margin-bottom: 2px; display: block; line-height: 1.3; }
+  body { font-family: 'DM Sans', sans-serif; background: #F7F5F0; color: #1A1714; min-width: 900px; }
+  h1 { font-size: 1.5rem; font-weight: 700; }
+  h2 { font-size: 1.1rem; font-weight: 600; margin-bottom: 10px; }
+  .dashboard { padding: 18px 16px; }
+  .top-bar { background: #1A1714; color: #F7F5F0; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; border-radius: 12px; margin-bottom: 18px; }
+  .top-bar .subtitle { font-size: 0.85rem; color: #aaa; margin-top: 3px; }
+  .week-section { margin-bottom: 22px; }
+  .week-label { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 7px; }
+  .grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+  .day-col { background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.07); display: flex; flex-direction: column; }
+  .day-header { background: #1A1714; color: #F7F5F0; padding: 7px 8px 6px; text-align: center; }
+  .day-header .dow { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: #aaa; }
+  .day-header .dom { font-size: 1.25rem; font-weight: 700; line-height: 1.1; }
+  .day-header.today-header { background: #2563EB; }
+  .pinned-strip { padding: 5px 6px 4px; border-bottom: 1px solid #F0EDEA; display: flex; flex-direction: column; gap: 3px; min-height: 10px; }
+  .pin-pill { font-size: 0.65rem; font-weight: 600; border-radius: 4px; padding: 2px 5px; line-height: 1.4; }
   .pin-holiday { background: #EAF3DE; color: #27500A; }
   .pin-maria { background: #D1FAE5; color: #065F46; }
   .pin-miguel { background: #DBEAFE; color: #1E3A8A; }
-  .pin-childcare-warn { background: #FEF9C3; color: #713F12; border: 1px solid #FDE047; }
-  .day-events { padding: 5px; }
-  .section-label { font-size: 8.5px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: #aaa; margin: 5px 0 3px; }
-  .pill { display: block; font-size: 9.5px; font-weight: 500; border-radius: 5px; padding: 3px 6px; margin-bottom: 3px; line-height: 1.35; }
-  .pill-time { font-size: 8.5px; font-weight: 400; opacity: 0.75; display: block; }
+  .pin-alert { background: #FEF3C7; color: #92400E; }
+  .events-area { padding: 5px 6px 7px; display: flex; flex-direction: column; gap: 3px; flex: 1; }
+  .pill { font-size: 0.63rem; font-weight: 500; border-radius: 5px; padding: 3px 6px; line-height: 1.45; word-break: break-word; }
   .pill-allie-key { background: #FCE7F3; color: #831843; }
+  .pill-allie-bg { background: #F3F4F6; color: #831843; }
   .pill-miguel-key { background: #DBEAFE; color: #1E3A8A; }
-  .pill-family-key { background: #EAF3DE; color: #27500A; }
-  .pill-childcare-warn { background: #FEF9C3; color: #713F12; border: 1px solid #FDE047; font-weight: 700; }
-  .pill-bg { background: #F3F4F6; color: #831843; }
-  .pill-bg-miguel { background: #F3F4F6; color: #1E3A8A; }
-  .pill-warn { background: #FEF3C7; color: #92400E; font-weight: 700; border: 1px solid #FCD34D; }
-  .summary-section { padding: 0 16px 30px; }
-  .summary-title { font-size: 13px; font-weight: 700; letter-spacing: -0.2px; margin: 18px 0 8px; color: #1A1714; }
-  .summary-pills { display: flex; flex-wrap: wrap; gap: 5px; }
-  .s-pill { font-size: 11px; font-weight: 500; border-radius: 20px; padding: 4px 10px; }
-  .s-pill-miguel { background: #DBEAFE; color: #1E3A8A; }
-  .s-pill-maria { background: #D1FAE5; color: #065F46; }
-  .divider { height: 1px; background: #E8E4DC; margin: 8px 16px; }
-  .legend { display: flex; flex-wrap: wrap; gap: 8px; padding: 12px 16px; }
-  .leg-item { display: flex; align-items: center; gap: 5px; font-size: 10px; font-weight: 500; }
-  .leg-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
-  .no-maria-bar { background: #FEF2F2; border: 1px solid #FECACA; color: #991B1B; font-size: 9px; font-weight: 700; padding: 2px 5px; border-radius: 4px; margin-bottom: 2px; display: block; }
+  .pill-family { background: #EAF3DE; color: #27500A; }
+  .pill-alert { background: #FEF3C7; color: #92400E; border: 1px solid #FCD34D; font-weight: 700; }
+  .pill-personal-allie { background: #FCE7F3; color: #831843; }
+  .section-below { margin-top: 24px; }
+  .section-below h2 { color: #1A1714; border-bottom: 2px solid #E5E1DA; padding-bottom: 6px; margin-bottom: 12px; }
+  .pills-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+  .pill-lg { font-size: 0.75rem; font-weight: 500; border-radius: 6px; padding: 5px 10px; line-height: 1.4; }
+  .pill-lg-ccu { background: #DBEAFE; color: #1E3A8A; }
+  .pill-lg-maria { background: #D1FAE5; color: #065F46; }
+  .no-maria-warn { background: #FEF3C7; color: #92400E; border: 1px solid #FCD34D; font-size: 0.75rem; font-weight: 700; padding: 6px 10px; border-radius: 7px; margin-bottom: 10px; }
+  .month-section { margin-bottom: 20px; }
+  .month-title { font-size: 0.85rem; font-weight: 700; color: #666; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
 </style>
 </head>
 <body>
+<div class="dashboard">
 
-<div class="page-header">
+<div class="top-bar">
   <div>
-    <div class="subtitle">FAMILY SCHEDULE DASHBOARD</div>
-    <h1>Allie &amp; Miguel</h1>
+    <div class="h1" style="font-size:1.4rem;font-weight:700;">🏠 Allie &amp; Miguel</div>
+    <div class="subtitle">Family Dashboard · Thursday, March 26, 2026</div>
   </div>
-  <div style="text-align:right;font-size:12px;opacity:0.6;">Wed, March 25, 2026</div>
+  <div style="font-size:0.8rem;color:#ccc;text-align:right;">2-Week View<br>Mar 26 – Apr 8</div>
 </div>
 
-<div style="padding:10px 16px 0;">
-<div class="legend">
-  <div class="leg-item"><div class="leg-dot" style="background:#FCE7F3;border:1px solid #F9A8D4;"></div>Allie Key</div>
-  <div class="leg-item"><div class="leg-dot" style="background:#DBEAFE;border:1px solid #93C5FD;"></div>Miguel Key/Shift</div>
-  <div class="leg-item"><div class="leg-dot" style="background:#EAF3DE;border:1px solid #86EFAC;"></div>Family/Holiday</div>
-  <div class="leg-item"><div class="leg-dot" style="background:#D1FAE5;border:1px solid #6EE7B7;"></div>Maria</div>
-  <div class="leg-item"><div class="leg-dot" style="background:#F3F4F6;border:1px solid #D1D5DB;"></div>Background Lecture</div>
-  <div class="leg-item"><div class="leg-dot" style="background:#FEF9C3;border:1px solid #FDE047;"></div>Childcare Alert</div>
-</div>
-</div>
-
-<!-- THIS WEEK: Mon Mar 23 – Sun Mar 29 -->
-<!-- Actually today is Wed Mar 25, so this week Mon Mar 23 – Sun Mar 29 -->
+<!-- WEEK 1: Mar 26–Apr 1 (Thu–Sun shown from today, Mon–Sun logic: this week = Mon Mar 23 – Sun Mar 29, but we start from today Mar 26) -->
+<!-- Per rules: THIS week = Mon Mar 23–Sun Mar 29 but today is Thu Mar 26, so show Mar 26–Apr 1 as "this week" portion remaining, then next week Mon Mar 30... Actually rules say 7-day horizontal grid for THIS week and NEXT week. This week Mon-Sun = Mar 23-29, next week = Mar 30–Apr 5. We show full weeks. -->
 
 <div class="week-section">
-<div class="week-label">This Week &mdash; March 23–29, 2026</div>
-<div class="grid">
+  <div class="week-label">This Week — March 23–29, 2026</div>
+  <div class="grid">
 
-  <!-- MON MAR 23 -->
-  <div class="day-col">
-    <div class="day-header">
-      <div class="dow">Mon</div>
-      <div class="date">23</div>
-      <div class="month">Mar</div>
+    <!-- MON Mar 23 -->
+    <div class="day-col">
+      <div class="day-header">
+        <div class="dow">Mon</div>
+        <div class="dom">23</div>
+      </div>
+      <div class="pinned-strip">
+        <span class="pin-pill pin-maria">Maria 7:30–5:30</span>
+      </div>
+      <div class="events-area">
+        <span class="pill pill-allie-bg">No key events</span>
+      </div>
     </div>
-    <div class="pinned-strip">
-      <span class="pin-item pin-maria">Maria 7:30–5:30</span>
+
+    <!-- TUE Mar 24 -->
+    <div class="day-col">
+      <div class="day-header">
+        <div class="dow">Tue</div>
+        <div class="dom">24</div>
+      </div>
+      <div class="pinned-strip">
+        <span class="pin-pill pin-maria">Maria ?</span>
+      </div>
+      <div class="events-area">
+      </div>
     </div>
-    <div class="day-events">
-      <!-- no events -->
+
+    <!-- WED Mar 25 -->
+    <div class="day-col">
+      <div class="day-header">
+        <div class="dow">Wed</div>
+        <div class="dom">25</div>
+      </div>
+      <div class="pinned-strip">
+      </div>
+      <div class="events-area">
+      </div>
     </div>
+
+    <!-- THU Mar 26 TODAY -->
+    <div class="day-col">
+      <div class="day-header today-header">
+        <div class="dow">Thu ★</div>
+        <div class="dom">26</div>
+      </div>
+      <div class="pinned-strip">
+        <span class="pin-pill pin-maria">Maria 7:30–5:30</span>
+        <span class="pin-pill pin-miguel">FLOAT</span>
+      </div>
+      <div class="events-area">
+        <span class="pill pill-miguel-key">Fidelity – Carlos Gutierrez 9am</span>
+        <span class="pill pill-allie-bg">Heart Listing Conf 7–9am</span>
+        <span class="pill pill-allie-bg">Ped Card EP Conf 7–8am</span>
+        <span class="pill pill-allie-bg">MMCV Imaging GR 12–1pm</span>
+        <span class="pill pill-allie-bg">Didactic – CPET in ACHD 5:30–6:30pm</span>
+      </div>
+    </div>
+
+    <!-- FRI Mar 27 -->
+    <div class="day-col">
+      <div class="day-header">
+        <div class="dow">Fri</div>
+        <div class="dom">27</div>
+      </div>
+      <div class="pinned-strip">
+        <span class="pin-pill pin-maria">Maria 11–8</span>
+        <span class="pin-pill pin-miguel">1st Call</span>
+      </div>
+      <div class="events-area">
+        <span class="pill pill-allie-key">ISHLT ACHD-HF SIG Mtg 10am</span>
+        <span class="pill pill-allie-bg">Duke Peds Heart Conf 7:30–9:30am</span>
+        <span class="pill pill-allie-bg">CD Fellows Core – HF/Txp Case Conf 12–1pm</span>
+        <span class="pill pill-allie-bg">DAC Monthly Mtg 2–3pm</span>
+      </div>
+    </div>
+
+    <!-- SAT Mar 28 -->
+    <div class="day-col">
+      <div class="day-header">
+        <div class="dow">Sat</div>
+        <div class="dom">28</div>
+      </div>
+      <div class="pinned-strip">
+      </div>
+      <div class="events-area">
+        <span class="pill pill-allie-bg" style="color:#aaa;font-style:italic;">–</span>
+      </div>
+    </div>
+
+    <!-- SUN Mar 29 -->
+    <div class="day-col">
+      <div class="day-header">
+        <div class="dow">Sun</div>
+        <div class="dom">29</div>
+      </div>
+      <div class="pinned-strip">
+        <span class="pin-pill pin-holiday">🌿 Palm Sunday</span>
+      </div>
+      <div class="events-area">
+        <span class="pill pill-family">🎂 Gisse's Birthday</span>
+        <span class="pill pill-family">Gisse's Birthday Brunch 12–2pm</span>
+      </div>
+    </div>
+
   </div>
-
-  <!-- TUE MAR 24 -->
-  <div class="day-col">
-    <div class="day-header">
-      <div class="dow">Tue</div>
-      <div class="date">24</div>
-      <div class="month">Mar</div>
-    </div>
-    <div class="pinned-strip">
-      <span class="pin-item pin-maria">Maria 7:30–5:30</span>
-    </div>
-    <div class="day-events">
-    </div>
-  </div>
-
-  <!-- WED MAR 25 — TODAY -->
-  <div class="day-col">
-    <div class="day-header today">
-      <div class="dow">Wed ★</div>
-      <div class="date">25</div>
-      <div class="month">Mar</div>
-    </div>
-    <div class="pinned-strip">
-      <span class="pin-item pin-miguel">Lung Transplant</span>
-      <span class="pin-item pin-maria">Maria 7:30–5:30</span>
-    </div>
-    <div class="day-events">
-    </div>
-  </div>
-
-  <!-- THU MAR 26 -->
-  <div class="day-col">
-    <div class="day-header">
-      <div class="dow">Thu</div>
-      <div class="date">26</div>
-      <div class="month">Mar</div>
-    </div>
-    <div class="pinned-strip">
-      <span class="pin-item pin-miguel">Float</span>
-      <span class="pin-item pin-maria">Maria 7:30–5:30</span>
-    </div>
-    <div class="day-events">
-      <div class="section-label">Background</div>
-      <span class="pill pill-bg">Heart Listing Conf<span class="pill-time">7–9am</span></span>
-      <span class="pill pill-bg">Ped Cards EP Conf<span class="pill-time">7–8am</span></span>
-      <span class="pill pill-bg">MMCV Imaging GR<span class="pill-time">12–1pm</span></span>
-      <span class="pill pill-bg">Didactic – CPET in ACHD<span class="pill-time">5:30–6:30pm</span></span>
-    </div>
-  </div>
-
-  <!-- FRI MAR 27 -->
-  <div class="day-col">
-    <div class="day-header">
-      <div class="dow">Fri</div>
-      <div class="date">27</div>
-      <div class="month">Mar</div>
-    </div>
-    <div class="pinned-strip">
-      <span class="pin-item pin-miguel">1st Call</span>
-      <span class="pin-item pin-maria">Maria 11–8</span>
-    </div>
-    <div class="day-events">
-      <div class="section-label">Key</div>
-      <span class="pill pill-allie-key">ISHLT ACHD-HF SIG Mtg<span class="pill-time">10–11am</span></span>
-      <div class="section-label">Background</div>
-      <span class="pill pill-bg">Duke Peds Heart Conf<span class="pill-time">7:30–9:30am</span></span>
-      <span class="pill pill-bg">CD Fellows Core – HF/Txp<span class="pill-time">12–1pm</span></span>
-    </div>
-  </div>
-
-  <!-- SAT MAR 28 -->
-  <div class="day-col">
-    <div class="day-header">
-      <div class="dow">Sat</div>
-      <div class="date">28</div>
-      <div class="month">Mar</div>
-    </div>
-    <div class="pinned-strip">
-    </div>
-    <div class="day-events">
-    </div>
-  </div>
-
-  <!-- SUN MAR 29 -->
-  <div class="day-col">
-    <div class="day-header">
-      <div class="dow">Sun</div>
-      <div class="date">29</div>
-      <div class="month">Mar</div>
-    </div>
-    <div class="pinned-strip">
-      <span class="pin-item pin-holiday">🌿 Palm Sunday</span>
-      <span class="pin-item pin-holiday">Gisse's Birthday</span>
-    </div>
-    <div class="day-events">
-      <div class="section-label">Key</div>
-      <span class="pill pill-family-key">🎂 Gisse Bday Brunch<span class="pill-time">12–2pm</span></span>
-    </div>
-  </div>
-
-</div>
 </div>
 
-<!-- NEXT WEEK: Mon Mar 30 – Sun Apr 5 -->
+<!-- WEEK 2: Mar 30–Apr 5 -->
 <div class="week-section">
-<div class="week-label">Next Week &mdash; March 30 – April 5, 2026</div>
-<div class="grid">
+  <div class="week-label">Next Week — March 30 – April 5, 2026</div>
+  <div class="grid">
 
-  <!-- MON MAR 30 -->
-  <div class="day-col">
-    <div class="day-header">
-      <div class="dow">Mon</div>
-      <div class="date">30</div>
-      <div class="month">Mar</div>
+    <!-- MON Mar 30 -->
+    <div class="day-col">
+      <div class="day-header">
+        <div class="dow">Mon</div>
+        <div class="dom">Mar 30</div>
+      </div>
+      <div class="pinned-strip">
+        <span class="pin-pill pin-maria">Maria 7:30–5:30</span>
+        <span class="pin-pill pin-miguel">TEE</span>
+      </div>
+      <div class="events-area">
+        <span class="pill pill-personal-allie">Dr. Howell New Pt Appt 10:15–11:15am</span>
+        <span class="pill pill-allie-bg">Ped Card Fellow Conf – Ebstein's 7–8am</span>
+      </div>
     </div>
-    <div class="pinned-strip">
-      <span class="pin-item pin-miguel">TEE</span>
-      <span class="pin-item pin-maria">Maria 7:30–5:30</span>
+
+    <!-- TUE Mar 31 -->
+    <div class="day-col">
+      <div class="day-header">
+        <div class="dow">Tue</div>
+        <div class="dom">Mar 31</div>
+      </div>
+      <div class="pinned-strip">
+        <span class="pin-pill pin-maria">Maria 7:30–5:30</span>
+        <span class="pin-pill pin-miguel">2nd Call</span>
+        <span class="pin-pill pin-holiday">🎂 Twin's Birthday</span>
+      </div>
+      <div class="events-area">
+        <span class="pill pill-family">🎂 Twin's Birthday (1995)</span>
+        <span class="pill pill-allie-bg">DCRI Anniversary Forum 12–1pm</span>
+        <span class="pill pill-allie-bg">Cardiology Grand Rounds – Dr. Hanna 5pm</span>
+      </div>
     </div>
-    <div class="day-events">
-      <div class="section-label">Key</div>
-      <span class="pill pill-allie-key">Dr. Howell New Pt Appt<span class="pill-time">10:15–11:15am</span></span>
-      <div class="section-label">Background</div>
-      <span class="pill pill-bg">Ped Cards Fellow Conf – Ebstein's<span class="pill-time">7–8am</span></span>
+
+    <!-- WED Apr 1 -->
+    <div class="day-col">
+      <div class="day-header">
+        <div class="dow">Wed</div>
+        <div class="dom">Apr 1</div>
+      </div>
+      <div class="pinned-strip">
+        <span class="pin-pill pin-holiday">🃏 April Fools'</span>
+        <span class="pin-pill pin-miguel">Non Invasive</span>
+      </div>
+      <div class="events-area">
+        <span class="pill pill-family">🕍 First Night Passover Seder – Tamara &amp; Chooka's 6pm</span>
+        <span class="pill pill-allie-key">NCCHD Internal Stats Mtg 2–3pm</span>
+        <span class="pill pill-allie-bg">Ped Card Imaging Conf – Adult Fontan 7–8am</span>
+        <span class="pill pill-allie-bg">CD Fellows Core – Heart &amp; Diabetes 12–1pm</span>
+      </div>
     </div>
+
+    <!-- THU Apr 2 -->
+    <div class="day-col">
+      <div class="day-header">
+        <div class="dow">Thu</div>
+        <div class="dom">Apr 2</div>
+      </div>
+      <div class="pinned-strip">
+        <span class="pin-pill pin-holiday">🕍 Passover Begins</span>
+        <span class="pin-pill pin-holiday">🎈 Daycare Spring Party</span>
+        <span class="pin-pill pin-miguel">Lung Transplant</span>
+      </div>
+      <div class="events-area">
+        <span class="pill pill-family">🕍 Second Night Passover Seder – Allie's Parents' 6pm</span>
+        <span class="pill pill-allie-key">Allison Levin Mentorship Mtg 10am–11am</span>
+        <span class="pill pill-allie-bg">Heart Listing Conf 7–9am</span>
+        <span class="pill pill-allie-bg">Ped Card EP Conf 7–8am</span>
+        <span class="pill pill-allie-bg">MMCV Imaging GR 12–1pm</span>
+      </div>
+    </div>
+
+    <!-- FRI Apr 3 -->
+    <div class="day-col">
+      <div class="day-header">
+        <div class="dow">Fri</div>
+        <div class="dom">Apr 3</div>
+      </div>
+      <div class="pinned-strip">
+        <span class="pin-pill pin-holiday">✝️ Good Friday</span>
+        <span class="pin-pill pin-alert">⚠️ DAYCARE CLOSED</span>
+        <span class="pin-pill pin-miguel">Non Invasive</span>
+      </div>
+      <div class="events-area">
+        <span class="pill pill-alert">⚠️ DAYCARE CLOSED – Find Childcare!</span>
+        <span class="pill pill-allie-bg">Duke Peds Heart Conf 7:30–9:30am</span>
+      </div>
+    </div>
+
+    <!-- SAT Apr 4 -->
+    <div class="day-col">
+      <div class="day-header">
+        <div class="dow">Sat</div>
+        <div class="dom">Apr 4</div>
+      </div>
+      <div class="pinned-strip">
+        <span class="pin-pill pin-miguel">CCU</span>
+      </div>
+      <div class="events-area">
+        <span class="pill pill-miguel-key">CCU Shift 7am–7pm</span>
+      </div>
+    </div>
+
+    <!-- SUN Apr 5 -->
+    <div class="day-col">
+      <div class="day-header">
+        <div class="dow">Sun</div>
+        <div class="dom">Apr 5</div>
+      </div>
+      <div class="pinned-strip">
+        <span class="pin-pill pin-holiday">✝️ Easter 2026</span>
+        <span class="pin-pill pin-miguel">CCU</span>
+      </div>
+      <div class="events-area">
+        <span class="pill pill-family">✝️ Easter 2026</span>
+        <span class="pill pill-miguel-key">CCU Shift 7am–7pm</span>
+      </div>
+    </div>
+
   </div>
-
-  <!-- TUE MAR 31 -->
-  <div class="day-col">
-    <div class="day-header">
-      <div class="dow">Tue</div>
-      <div class="date">31</div>
-      <div class="month">Mar</div>
-    </div>
-    <div class="pinned-strip">
-      <span class="pin-item pin-miguel">2nd Call</span>
-      <span class="pin-item pin-holiday">🎂 Twin's Birthday</span>
-      <span class="pin-item pin-maria">Maria 7:30–5:30</span>
-    </div>
-    <div class="day-events">
-      <div class="section-label">Background</div>
-      <span class="pill pill-bg">Ped Cards Cath Conf – Calculations<span class="pill-time">7–8am</span></span>
-      <span class="pill pill-bg">Grand Rounds – Dr. Hanna<span class="pill-time">5–6pm</span></span>
-    </div>
-  </div>
-
-  <!-- WED APR 1 -->
-  <div class="day-col">
-    <div class="day-header">
-      <div class="dow">Wed</div>
-      <div class="date">1</div>
-      <div class="month">Apr</div>
-    </div>
-    <div class="pinned-strip">
-      <span class="pin-item pin-miguel">Non Invasive</span>
-      <span class="pin-item pin-holiday">April Fools' Day</span>
-    </div>
-    <div class="day-events">
-      <div class="section-label">Key</div>
-      <span class="pill pill-family-key">🕍 First Passover Seder – Tamara &amp; Chooka's<span class="pill-time">6–9pm</span></span>
-      <div class="section-label">Background</div>
-      <span class="pill pill-bg">Ped Cards Imaging Conf – Fontan<span class="pill-time">7–8am</span></span>
-      <span class="pill pill-bg">CD Fellows Core – Heart &amp; Diabetes<span class="pill-time">12–1pm</span></span>
-      <span class="pill pill-allie-key" style="background:#F3F4F6;color:#831843;">NCCHD Internal Stats Mtg<span class="pill-time">2–3pm</span></span>
-    </div>
-  </div>
-
-  <!-- THU APR 2 -->
-  <div class="day-col">
-    <div class="day-header">
-      <div class="dow">Thu</div>
-      <div class="date">2</div>
-      <div class="month">Apr</div>
-    </div>
-    <div class="pinned-strip">
-      <span class="pin-item pin-miguel">Lung Transplant</span>
-      <span class="pin-item pin-holiday">✡️ Passover Begins</span>
-      <span class="pin-item pin-holiday">🎉 Daycare Spring Party</span>
-    </div>
-    <div class="day-events">
-      <div class="section-label">Key</div>
-      <span class="pill pill-allie-key">Allison Levin Mentorship Mtg<span class="pill-time">10–11am</span></span>
-      <span class="pill pill-family-key">🕍 Second Passover Seder – Allie's Parents'<span class="pill-time">6–9pm</span></span>
-      <div class="section-label">Background</div>
-      <span class="pill pill-bg">Heart Listing Conf<span class="pill-time">7–9am</span></span>
-      <span class="pill pill-bg">Ped Cards EP Conf<span class="pill-time">7–8am</span></span>
-      <span class="pill pill-bg">MMCV Imaging GR<span class="pill-time">12–1pm</span></span>
-    </div>
-  </div>
-
-  <!-- FRI APR 3 -->
-  <div class="day-col">
-    <div class="day-header">
-      <div class="dow">Fri</div>
-      <div class="date">3</div>
-      <div class="month">Apr</div>
-    </div>
-    <div class="pinned-strip">
-      <span class="pin-item pin-miguel">Non Invasive</span>
-      <span class="pin-item pin-holiday">✝️ Good Friday</span>
-      <span class="pin-item pin-holiday pin-childcare-warn" style="background:#FEF9C3;color:#713F12;border:1px solid #FDE047;">⚠️ DAYCARE CLOSED</span>
-    </div>
-    <div class="day-events">
-      <div class="section-label">⚠️ Childcare</div>
-      <span class="pill pill-childcare-warn">⚠️ Daycare CLOSED – Find Childcare!</span>
-      <div class="section-label">Background</div>
-      <span class="pill pill-bg">Duke Peds Heart Conf<span class="pill-time">7:30–9:30am</span></span>
-    </div>
-  </div>
-
-  <!-- SAT APR 4 -->
-  <div class="day-col">
-    <div class="day-header">
-      <div class="dow">Sat</div>
-      <div class="date">4</div>
-      <div class="month">Apr</div>
-    </div>
-    <div class="pinned-strip">
-      <span class="pin-item pin-miguel">CCU</span>
-    </div>
-    <div class="day-events">
-      <div class="section-label">Miguel</div>
-      <span class="pill pill-miguel-key">CCU Shift<span class="pill-time">7am–7pm</span></span>
-    </div>
-  </div>
-
-  <!-- SUN APR 5 -->
-  <div class="day-col">
-    <div class="day-header">
-      <div class="dow">Sun</div>
-      <div class="date">5</div>
-      <div class="month">Apr</div>
-    </div>
-    <div class="pinned-strip">
-      <span class="pin-item pin-holiday">✝️ Easter</span>
-      <span class="pin-item pin-miguel">CCU</span>
-    </div>
-    <div class="day-events">
-      <div class="section-label">Key</div>
-      <span class="pill pill-family-key">✝️ Easter 2026</span>
-      <div class="section-label">Miguel</div>
-      <span class="pill pill-miguel-key">CCU Shift<span class="pill-time">7am–7pm</span></span>
-    </div>
-  </div>
-
-</div>
 </div>
 
-<div class="divider"></div>
+<!-- BELOW GRID SECTIONS -->
+<div class="section-below">
 
-<!-- MONTHLY SUMMARIES -->
-<div class="summary-section">
+  <h2>📅 Miguel — CCU Blocks</h2>
 
-  <div class="summary-title">🏥 Miguel CCU Days — March &amp; April 2026</div>
-  <div class="summary-pills">
-    <span class="s-pill s-pill-miguel">Apr 4 (Sat)</span>
-    <span class="s-pill s-pill-miguel">Apr 5 (Sun)</span>
-    <span class="s-pill s-pill-miguel">Apr 6 (Mon)</span>
-    <span class="s-pill s-pill-miguel">Apr 7 (Tue)</span>
-    <span class="s-pill s-pill-miguel">Apr 17 (Fri)</span>
-    <span class="s-pill s-pill-miguel">Apr 18 (Sat)</span>
-    <span class="s-pill s-pill-miguel">Apr 19 (Sun)</span>
+  <div class="month-section">
+    <div class="month-title">March 2026</div>
+    <div class="pills-row">
+      <span class="pill-lg pill-lg-ccu">No CCU in March</span>
+    </div>
   </div>
 
-  <div class="summary-title">🏥 Miguel CCU Days — May 2026</div>
-  <div class="summary-pills">
-    <span class="s-pill s-pill-miguel">May 11 (Mon)</span>
-    <span class="s-pill s-pill-miguel">May 12 (Tue)</span>
-    <span class="s-pill s-pill-miguel">May 13 (Wed)</span>
-    <span class="s-pill s-pill-miguel">May 22 (Fri)</span>
-    <span class="s-pill s-pill-miguel">May 23 (Sat)</span>
-    <span class="s-pill s-pill-miguel">May 24 (Sun)</span>
-    <span class="s-pill s-pill-miguel">May 25 (Mon)</span>
+  <div class="month-section">
+    <div class="month-title">April 2026</div>
+    <div class="pills-row">
+      <span class="pill-lg pill-lg-ccu">Sat Apr 4 – CCU 7am–7pm</span>
+      <span class="pill-lg pill-lg-ccu">Sun Apr 5 – CCU 7am–7pm</span>
+      <span class="pill-lg pill-lg-ccu">Mon Apr 6 – CCU 7am–7pm</span>
+      <span class="pill-lg pill-lg-ccu">Tue Apr 7 – CCU 7am–7pm</span>
+      <span class="pill-lg pill-lg-ccu">Fri Apr 17 – CCU 7am–7pm</span>
+      <span class="pill-lg pill-lg-ccu">Sat Apr 18 – CCU 7am–7pm</span>
+      <span class="pill-lg pill-lg-ccu">Sun Apr 19 – CCU 7am–7pm</span>
+    </div>
   </div>
 
-  <div style="background:#FEF2F2;border:1px solid #FECACA;border-radius:8px;padding:10px 14px;margin:12px 0 0;">
-    <div style="font-size:11px;font-weight:700;color:#991B1B;">⚠️ Memorial Day May 25 — Miguel has CCU + Daycare CLOSED + Hospital Holiday</div>
+  <div class="month-section">
+    <div class="month-title">May 2026</div>
+    <div class="pills-row">
+      <span class="pill-lg pill-lg-ccu">Mon May 11 – CCU 7am–7pm</span>
+      <span class="pill-lg pill-lg-ccu">Tue May 12 – CCU 7am–7pm</span>
+      <span class="pill-lg pill-lg-ccu">Wed May 13 – CCU 7am–7pm</span>
+      <span class="pill-lg pill-lg-ccu">Fri May 22 – CCU 7am–7pm</span>
+      <span class="pill-lg pill-lg-ccu">Sat May 23 – CCU 7am–7pm</span>
+      <span class="pill-lg pill-lg-ccu">Sun May 24 – CCU 7am–7pm</span>
+      <span class="pill-lg pill-lg-ccu">Mon May 25 – CCU 7am–7pm</span>
+    </div>
   </div>
 
-  <div class="summary-title">🧑‍🍼 Maria Shifts — March 2026 (remaining)</div>
-  <div class="summary-pills">
-    <span class="s-pill s-pill-maria">Mar 25 Wed · 7:30–5:30</span>
-    <span class="s-pill s-pill-maria">Mar 26 Thu · 7:30–5:30</span>
-    <span class="s-pill s-pill-maria">Mar 27 Fri · 11–8</span>
-    <span class="s-pill s-pill-maria">Mar 30 Mon · 7:30–5:30</span>
-    <span class="s-pill s-pill-maria">Mar 31 Tue · 7:30–5:30</span>
+  <h2 style="margin-top:20px;">🧑‍🍼 Maria — Shift Schedule</h2>
+
+  <div class="month-section">
+    <div class="month-title">March 2026 (from today)</div>
+    <div class="pills-row">
+      <span class="pill-lg pill-lg-maria">Thu Mar 26 – 7:30–5:30</span>
+      <span class="pill-lg pill-lg-maria">Fri Mar 27 – 11–8</span>
+      <span class="pill-lg pill-lg-maria">Mon Mar 30 – 7:30–5:30</span>
+      <span class="pill-lg pill-lg-maria">Tue Mar 31 – 7:30–5:30</span>
+    </div>
+    <div class="no-maria-warn">⚠️ No Maria data for Wed Mar 25, Tue Mar 24, Mon Mar 23 — verify coverage!</div>
+    <div class="no-maria-warn">⚠️ No Maria data for Apr 1 onward — verify upcoming schedule with Maria!</div>
   </div>
 
-  <div class="summary-title">🧑‍🍼 Maria Shifts — April 2026</div>
-  <div class="summary-pills">
-    <span style="font-size:11px;color:#6B7280;font-style:italic;">No Maria shifts entered for April in calendar data.</span>
-  </div>
-  <div style="background:#FEF2F2;border:1px solid #FECACA;border-radius:8px;padding:10px 14px;margin:6px 0 0;">
-    <div style="font-size:11px;font-weight:700;color:#991B1B;">⚠️ No Maria shifts recorded for April — confirm childcare coverage, especially Apr 3 (Good Friday, Daycare Closed)</div>
+  <div class="month-section">
+    <div class="month-title">April &amp; May 2026</div>
+    <div class="no-maria-warn">⚠️ No Maria shift data found for April or May 2026. Confirm schedule ASAP — especially around Daycare Closures (Apr 3, May 25) and Frances/Howard Away dates.</div>
   </div>
 
-  <div class="summary-title">🧑‍🍼 Maria Shifts — May 2026</div>
-  <div class="summary-pills">
-    <span style="font-size:11px;color:#6B7280;font-style:italic;">No Maria shifts entered for May in calendar data.</span>
-  </div>
-  <div style="background:#FEF2F2;border:1px solid #FECACA;border-radius:8px;padding:10px 14px;margin:6px 0 0;">
-    <div style="font-size:11px;font-weight:700;color:#991B1B;">⚠️ No Maria shifts recorded for May — confirm childcare coverage, especially May 25 (Memorial Day, Daycare Closed, Miguel on CCU)</div>
-  </div>
-
-  <div class="summary-title">📅 Miguel Full Shift Schedule — April 2026</div>
-  <div class="summary-pills">
-    <span class="s-pill s-pill-miguel">Apr 1 · Non Invasive</span>
-    <span class="s-pill s-pill-miguel">Apr 2 · Lung Transplant</span>
-    <span class="s-pill s-pill-miguel">Apr 3 · Non Invasive</span>
-    <span class="s-pill s-pill-miguel">Apr 4–7 · CCU</span>
-    <span class="s-pill s-pill-miguel">Apr 8 · Post-Call</span>
-    <span class="s-pill s-pill-miguel">Apr 9 · Float</span>
-    <span class="s-pill s-pill-miguel">Apr 10 · 2nd Call</span>
-    <span class="s-pill s-pill-miguel">Apr 13 · Lung Transplant</span>
-    <span class="s-pill s-pill-miguel">Apr 14 · 3rd Call</span>
-    <span class="s-pill s-pill-miguel">Apr 15 · 2nd Call</span>
-    <span class="s-pill s-pill-miguel">Apr 16 · Non Invasive</span>
-    <span class="s-pill s-pill-miguel">Apr 17–19 · CCU</span>
-    <span class="s-pill s-pill-miguel">Apr 20 · Post</span>
-    <span class="s-pill s-pill-miguel">Apr 21 · 3rd Call</span>
-    <span class="s-pill s-pill-miguel">Apr 22 · Float / High Call Risk</span>
-    <span class="s-pill s-pill-miguel">Apr 23 · Non Invasive</span>
-    <span class="s-pill s-pill-miguel">Apr 24 · Lung Transplant</span>
-    <span class="s-pill s-pill-miguel">Apr 27 · Lung Transplant</span>
-    <span class="s-pill s-pill-miguel">Apr 28 · 3rd Call</span>
-    <span class="s-pill s-pill-miguel">Apr 29 · Float</span>
-    <span class="s-pill s-pill-miguel">Apr 30 · 1st Call</span>
+  <h2 style="margin-top:20px;">🚨 Childcare Alerts</h2>
+  <div class="pills-row">
+    <span class="pill-lg" style="background:#FEF3C7;color:#92400E;border:1px solid #FCD34D;font-weight:700;">⚠️ DAYCARE CLOSED – Fri Apr 3 (Good Friday) – Find Childcare</span>
+    <span class="pill-lg" style="background:#FEF3C7;color:#92400E;border:1px solid #FCD34D;font-weight:700;">⚠️ DAYCARE CLOSED – Mon May 25 (Memorial Day) – Find Childcare</span>
+    <span class="pill-lg" style="background:#FEF3C7;color:#92400E;border:1px solid #FCD34D;font-weight:700;">⚠️ Frances Away – Apr 15–17</span>
+    <span class="pill-lg" style="background:#FEF3C7;color:#92400E;border:1px solid #FCD34D;font-weight:700;">⚠️ Howard Away – Apr 20–24</span>
+    <span class="pill-lg" style="background:#FEF3C7;color:#92400E;border:1px solid #FCD34D;font-weight:700;">⚠️ Howard Away – Apr 28–Apr 30</span>
   </div>
 
-  <div class="summary-title">📅 Miguel Full Shift Schedule — May 2026</div>
-  <div class="summary-pills">
-    <span class="s-pill s-pill-miguel">May 1 · 1st Call (cont.)</span>
-    <span class="s-pill s-pill-miguel">May 11–13 · CCU</span>
-    <span class="s-pill s-pill-miguel">May 22–25 · CCU</span>
+  <h2 style="margin-top:20px;">📌 Upcoming Key Events — Allie</h2>
+  <div class="pills-row">
+    <span class="pill-lg" style="background:#FCE7F3;color:#831843;">Dr. Howell Appt – Mon Mar 30, 10:15am</span>
+    <span class="pill-lg" style="background:#FCE7F3;color:#831843;">ISHLT ACHD-HF SIG – Fri Mar 27, 10am</span>
+    <span class="pill-lg" style="background:#FCE7F3;color:#831843;">NCCHD Stats – Wed Apr 1, 2pm</span>
+    <span class="pill-lg" style="background:#FCE7F3;color:#831843;">Allison Levin Mentorship – Thu Apr 2, 10am</span>
+    <span class="pill-lg" style="background:#FCE7F3;color:#831843;">CDC Biweekly – Wed Apr 8, 11:30am</span>
+    <span class="pill-lg" style="background:#FCE7F3;color:#831843;">Fellows Seminar – Wed Apr 8, 10:15am</span>
+    <span class="pill-lg" style="background:#FCE7F3;color:#831843;">AHFTC Lecture – Wed Apr 8, 4pm</span>
+    <span class="pill-lg" style="background:#FCE7F3;color:#831843;">ISHLT ACHD-HF SIG – Fri Apr 17, 10am</span>
+    <span class="pill-lg" style="background:#FCE7F3;color:#831843;">2nd Year Fellow Mtg – Mon Apr 20, 9:30am</span>
+    <span class="pill-lg" style="background:#FCE7F3;color:#831843;">CHD STAR2 Clinician Call – Tue Apr 21, 1pm</span>
+    <span class="pill-lg" style="background:#FCE7F3;color:#831843;">Research Topics Monthly – Tue Apr 21, 3pm</span>
+    <span class="pill-lg" style="background:#FCE7F3;color:#831843;">AHFTC Lecture – Wed Apr 22, 4pm</span>
+    <span class="pill-lg" style="background:#FCE7F3;color:#831843;">CDC Biweekly – Wed Apr 22, 11:30am</span>
+    <span class="pill-lg" style="background:#FCE7F3;color:#831843;">Allison Levin Mentorship – Thu Apr 16, 10am</span>
+    <span class="pill-lg" style="background:#FCE7F3;color:#831843;">Fellowship Leadership Monthly – Tue Apr 28, 2pm</span>
+    <span class="pill-lg" style="background:#FCE7F3;color:#831843;">Allison Levin Mentorship – Thu Apr 30, 10am</span>
+    <span class="pill-lg" style="background:#FCE7F3;color:#831843;">NCCHD Stats – Wed Apr 29, 2pm</span>
+    <span class="pill-lg" style="background:#FCE7F3;color:#831843;">Fellows Seminar – Mon May 11, 10am</span>
+    <span class="pill-lg" style="background:#FCE7F3;color:#831843;">Fellows Progress Rounds – Tue May 12, 10:30am</span>
+    <span class="pill-lg" style="background:#FCE7F3;color:#831843;">AHFTC Lecture – Wed May 6, 4pm</span>
+    <span class="pill-lg" style="background:#FCE7F3;color:#831843;">Fellows Journal Club – Wed May 6, 10am</span>
+    <span class="pill-lg" style="background:#FCE7F3;color:#831843;">CHD STAR2 Clinician Call – Tue May 19, 1pm</span>
+    <span class="pill-lg" style="background:#FCE7F3;color:#831843;">Research Topics Monthly – Tue May 19, 3pm</span>
+    <span class="pill-lg" style="background:#FCE7F3;color:#831843;">Graduating Fellows Presentations – Tue May 5, 9:30am</span>
+    <span class="pill-lg" style="background:#FCE7F3;color:#831843;">DCRI Fellows Farewell Dinner – Wed May 20, 6pm</span>
   </div>
 
-  <div class="summary-title">💳 Reminders (Miguel Personal)</div>
-  <div class="summary-pills">
-    <span class="s-pill" style="background:#DBEAFE;color:#1E3A8A;">Apr 17 · Pay Bell's Tuition</span>
-    <span class="s-pill" style="background:#DBEAFE;color:#1E3A8A;">May 1 · Pay Car Insurance</span>
-    <span class="s-pill" style="background:#DBEAFE;color:#1E3A8A;">May 5 · Credit Report – Experian</span>
-    <span class="s-pill" style="background:#DBEAFE;color:#1E3A8A;">May 15 · Pay Bell's Tuition</span>
+  <h2 style="margin-top:20px;">📌 Upcoming Key Events — Miguel Personal</h2>
+  <div class="pills-row">
+    <span class="pill-lg" style="background:#DBEAFE;color:#1E3A8A;">Fidelity – Carlos Gutierrez – Thu Mar 26, 9am</span>
+    <span class="pill-lg" style="background:#EAF3DE;color:#27500A;">🎂 Gisse's Birthday – Sun Mar 29</span>
+    <span class="pill-lg" style="background:#EAF3DE;color:#27500A;">🎂 Twin's Birthday – Tue Mar 31</span>
+    <span class="pill-lg" style="background:#DBEAFE;color:#1E3A8A;">Larry Westreich – Wed Apr 8, 3pm</span>
+    <span class="pill-lg" style="background:#FEF3C7;color:#92400E;font-weight:700;">💰 Pay Bell's Tuition – Fri Apr 17</span>
+    <span class="pill-lg" style="background:#FEF3C7;color:#92400E;font-weight:700;">💳 Credit Report – Experian – Tue May 5</span>
+    <span class="pill-lg" style="background:#FEF3C7;color:#92400E;font-weight:700;">🚗 Pay Car Insurance – Fri May 1</span>
+    <span class="pill-lg" style="background:#FEF3C7;color:#92400E;font-weight:700;">💰 Pay Bell's Tuition – Fri May 15</span>
   </div>
 
-  <div class="summary-title">⚠️ Upcoming Childcare Gaps</div>
-  <div style="display:flex;flex-direction:column;gap:6px;margin-top:4px;">
-    <div style="background:#FEF9C3;border:1px solid #FDE047;border-radius:8px;padding:8px 12px;font-size:11px;font-weight:600;color:#713F12;">⚠️ Apr 3 (Good Friday) — Daycare CLOSED · Miguel: Non Invasive shift</div>
-    <div style="background:#FEF9C3;border:1px solid #FDE047;border-radius:8px;padding:8px 12px;font-size:11px;font-weight:600;color:#713F12;">⚠️ May 25 (Memorial Day) — Daycare CLOSED · Miguel: CCU shift · Hospital Holiday</div>
+  <h2 style="margin-top:20px;">📅 Miguel — Full Shift Overview (March–May)</h2>
+  <div class="month-section">
+    <div class="month-title">Late March 2026</div>
+    <div class="pills-row">
+      <span class="pill-lg pill-lg-ccu">Thu Mar 26 – FLOAT</span>
+      <span class="pill-lg pill-lg-ccu">Fri Mar 27 – 1st Call</span>
+      <span class="pill-lg pill-lg-ccu">Mon Mar 30 – TEE</span>
+      <span class="pill-lg pill-lg-ccu">Tue Mar 31 – 2nd Call</span>
+    </div>
   </div>
-
-</div>
-
-</body>
-</html>
+  <div class="month-section">
+    <div class="month-title">April 2026</div>
+    <div class="pills-row">
+      <span class="pill-lg pill-lg-ccu
