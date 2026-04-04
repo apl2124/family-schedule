@@ -6,601 +6,886 @@
 <title>Yaport–Levin Family Schedule</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:#F7F5F0;font-family:'DM Sans',sans-serif;font-size:13px;color:#1A1714}
-.wrap{max-width:1400px;margin:0 auto;padding:16px}
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #F7F5F0; font-family: 'DM Sans', sans-serif; font-size: 13px; color: #1A1714; }
 
-/* TOP BAR */
-.topbar{background:#1A1714;border-radius:10px;padding:14px 20px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
-.topbar-title{font-family:'DM Serif Display',serif;color:#F7F5F0;font-size:22px;letter-spacing:0.2px}
-.topbar-meta{color:#A89F96;font-size:11px;text-align:right}
-.legend-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
-.leg-pill{border-radius:4px;padding:2px 8px;font-size:10px;font-weight:500}
-.leg-maria{background:#D1FAE5;color:#065F46}
-.leg-miguel{background:#DBEAFE;color:#1E3A8A}
-.leg-allie{background:#FCE7F3;color:#831843}
-.leg-family{background:#EAF3DE;color:#27500A}
-.leg-bkg{background:#F3F4F6;color:#831843}
-.leg-alert{background:#FEF3C7;color:#92400E}
+  /* TOP BAR */
+  .top-bar { background: #1A1714; color: #F7F5F0; padding: 14px 20px 10px; }
+  .top-bar-inner { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px; }
+  .top-bar h1 { font-family: 'DM Serif Display', serif; font-size: 22px; font-weight: 400; color: #F7F5F0; }
+  .top-bar-meta { font-size: 11px; color: #B0A89C; text-align: right; line-height: 1.5; }
+  .legend-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .legend-pill { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 500; }
+  .leg-maria { background: #D1FAE5; color: #065F46; }
+  .leg-miguel { background: #DBEAFE; color: #1E3A8A; }
+  .leg-allie { background: #FCE7F3; color: #831843; }
+  .leg-family { background: #EAF3DE; color: #27500A; }
+  .leg-bkg { background: #F3F4F6; color: #831843; }
 
-/* SECTION LABELS */
-.sec-label{font-family:'DM Serif Display',serif;font-size:16px;color:#1A1714;margin-bottom:10px;padding-bottom:4px;border-bottom:1px dashed #C9C3B8}
-.sec-wrap{margin-bottom:24px}
+  /* SECTION CONTAINERS */
+  .section-wrap { padding: 16px 20px; }
+  .section-divider { border: none; border-top: 1.5px dashed #D4CFC6; margin: 0 20px; }
+  .section-title { font-family: 'DM Serif Display', serif; font-size: 16px; font-weight: 400; margin-bottom: 10px; color: #1A1714; }
 
-/* WEEK GRIDS */
-.week-label{font-size:11px;font-weight:600;color:#6B635A;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px}
-.grid7{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:12px}
-.day-col{border-radius:8px;overflow:hidden;border:0.5px solid #E4E0D8;background:#fff;min-height:120px}
-.day-col.today{border:2px solid #1A1714}
-.day-header{background:#1A1714;color:#F7F5F0;font-size:10px;font-weight:600;text-align:center;padding:4px 2px;letter-spacing:0.3px}
-.day-header .dow{display:block;font-size:9px;opacity:0.7;font-weight:400}
-.day-header .dom{display:block;font-size:13px;font-weight:600}
+  /* WEEK GRID */
+  .week-block { margin-bottom: 14px; }
+  .week-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: #6B6560; margin-bottom: 6px; }
+  .week-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+  .day-col { background: #fff; border: 0.5px solid #E4E0D8; border-radius: 8px; overflow: hidden; min-width: 0; }
+  .day-header { background: #1A1714; color: #F7F5F0; text-align: center; padding: 4px 2px; }
+  .day-header .dh-name { font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+  .day-header .dh-date { font-size: 13px; font-weight: 500; }
+  .day-header.today-header { background: #4A3F35; }
+  .pinned-strip { background: #F9F7F4; padding: 4px; border-bottom: 0.5px solid #E4E0D8; display: flex; flex-direction: column; gap: 2px; }
+  .no-maria-bar { background: #FEF3C7; color: #92400E; border-top: 2px solid #FDE68A; font-size: 9px; font-weight: 600; padding: 2px 4px; text-align: center; border-radius: 3px; }
+  .section-zone { padding: 4px; }
+  .zone-label { font-size: 8px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: #9CA3AF; margin-bottom: 2px; }
+  .zone-divider { border: none; border-top: 0.5px dashed #E4E0D8; margin: 3px 0; }
+  .pill { display: block; border-radius: 4px; padding: 1.5px 5px; font-size: 9px; font-weight: 500; margin-bottom: 2px; line-height: 1.4; word-break: break-word; }
+  .pill-maria { background: #D1FAE5; color: #065F46; }
+  .pill-miguel { background: #DBEAFE; color: #1E3A8A; }
+  .pill-allie { background: #FCE7F3; color: #831843; }
+  .pill-family { background: #EAF3DE; color: #27500A; }
+  .pill-bkg { background: #F3F4F6; color: #831843; }
+  .pill-alert { background: #FEE2E2; color: #991B1B; border: 1px solid #FECACA; }
+  .pill-warn { background: #FEF3C7; color: #92400E; border: 1px solid #FDE68A; }
+  .empty-zone { font-size: 9px; font-style: italic; color: #9CA3AF; padding: 2px 0; }
 
-/* PINNED STRIP */
-.pinned-strip{background:#F9F7F4;padding:4px;border-bottom:1px solid #E4E0D8;display:flex;flex-direction:column;gap:2px}
-.no-maria-bar{background:#FEF3C7;color:#92400E;font-size:9px;font-weight:600;padding:2px 4px;border-radius:3px;border:1px solid #FDE68A}
+  /* SECTION 2 LAYOUT */
+  .section2-wrap { display: flex; gap: 16px; align-items: flex-start; }
+  .cal-col { flex: 0 0 70%; min-width: 0; }
+  .sidebar-col { flex: 0 0 30%; min-width: 0; display: flex; flex-direction: column; gap: 12px; }
 
-/* ZONES */
-.zone{padding:3px 4px}
-.zone-label{font-size:8px;font-weight:600;text-transform:uppercase;color:#9CA3AF;letter-spacing:0.4px;margin-bottom:2px}
-.zone-empty{font-size:9px;font-style:italic;color:#C4BDB5}
+  /* MONTHLY CALENDAR */
+  .month-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
+  .month-col-header { background: #1A1714; color: #F7F5F0; text-align: center; padding: 5px 2px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; border-radius: 4px; }
+  .month-day { background: #fff; border: 0.5px solid #E4E0D8; border-radius: 6px; padding: 4px; min-height: 56px; position: relative; overflow: hidden; }
+  .month-day.ccu-day { background: #FEE2E2; }
+  .month-day.late-maria { border: 3px solid #065F46; }
+  .month-day.ccu-day.late-maria { background: #FEE2E2; border: 3px solid #065F46; }
+  .month-day.empty-day { background: #F7F5F0; border-color: #EAE6E0; }
+  .month-day .md-num { font-size: 11px; font-weight: 600; color: #1A1714; }
+  .month-day.ccu-day .md-num { color: #991B1B; }
+  .month-day .md-dots { display: flex; flex-wrap: wrap; gap: 2px; margin-top: 3px; }
+  .md-dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
+  .md-dot-maria { background: #065F46; }
+  .md-dot-miguel { background: #1E3A8A; }
+  .md-dot-allie { background: #831843; }
+  .md-dot-family { background: #27500A; }
+  .month-day .md-label { font-size: 8px; color: #6B6560; margin-top: 2px; line-height: 1.3; }
+  .month-day.ccu-day .md-label { color: #991B1B; }
 
-/* PILLS */
-.pill{display:inline-block;border-radius:4px;font-size:9px;font-weight:500;padding:2px 5px;margin:1px 1px 1px 0;line-height:1.3;word-break:break-word;max-width:100%}
-.pill-maria{background:#D1FAE5;color:#065F46}
-.pill-miguel{background:#DBEAFE;color:#1E3A8A}
-.pill-allie-key{background:#FCE7F3;color:#831843}
-.pill-bkg{background:#F3F4F6;color:#831843}
-.pill-family{background:#EAF3DE;color:#27500A}
-.pill-alert{background:#FEF3C7;color:#92400E;border:1px solid #FDE68A}
-.pill-danger{background:#FEE2E2;color:#991B1B;border:1px solid #FECACA}
+  .cal-legend { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
+  .cal-legend-item { display: flex; align-items: center; gap: 5px; font-size: 10px; color: #4B4540; }
+  .cl-swatch { width: 14px; height: 14px; border-radius: 3px; flex-shrink: 0; }
+  .cl-ccu { background: #FEE2E2; border: 0.5px solid #FECACA; }
+  .cl-late { background: #fff; border: 3px solid #065F46; }
+  .cl-both { background: #FEE2E2; border: 3px solid #065F46; }
 
-/* MONTHLY CALENDAR */
-.month-sidebar-wrap{display:grid;grid-template-columns:70% 30%;gap:12px;margin-bottom:24px}
-.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
-.cal-dow{background:#1A1714;color:#F7F5F0;font-size:9px;font-weight:600;text-align:center;padding:5px 2px;border-radius:3px;letter-spacing:0.3px}
-.cal-day{border:1px solid #E4E0D8;border-radius:5px;min-height:64px;padding:4px;background:#fff;position:relative;font-size:10px}
-.cal-day.other-month{background:#F7F5F0;color:#C4BDB5}
-.cal-day.ccu-day{background:#FEE2E2;color:#991B1B}
-.cal-day.ccu-day .cal-dn{color:#991B1B}
-.cal-day.late-maria{border:3px solid #065F46}
-.cal-day.today-cal{box-shadow:0 0 0 2px #1A1714}
-.cal-dn{font-size:11px;font-weight:600;display:block;margin-bottom:2px}
-.cal-dot{width:5px;height:5px;border-radius:50%;display:inline-block;margin:1px}
-.cal-dot-miguel{background:#1E3A8A}
-.cal-dot-allie{background:#831843}
-.cal-dot-family{background:#27500A}
-.cal-dot-maria{background:#065F46}
-.cal-legend{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;font-size:10px;color:#6B635A}
-.cal-leg-item{display:flex;align-items:center;gap:5px}
-.cal-leg-box{width:14px;height:14px;border-radius:3px;border:1px solid #E4E0D8}
+  /* SIDEBAR CARDS */
+  .card { background: #fff; border: 0.5px solid #E4E0D8; border-radius: 10px; padding: 12px; }
+  .card-title { font-family: 'DM Serif Display', serif; font-size: 14px; font-weight: 400; margin-bottom: 8px; }
+  .ccu-list-item { display: flex; align-items: center; gap: 6px; padding: 3px 0; border-bottom: 0.5px solid #F3F0EC; font-size: 11px; }
+  .ccu-list-item:last-child { border-bottom: none; }
+  .ccu-dot { width: 8px; height: 8px; border-radius: 50%; background: #DC2626; flex-shrink: 0; }
+  .maria-list-item { display: flex; align-items: center; justify-content: space-between; padding: 3px 0; border-bottom: 0.5px solid #F3F0EC; font-size: 11px; }
+  .maria-list-item:last-child { border-bottom: none; }
+  .maria-date { color: #6B6560; font-size: 10px; }
+  .maria-hours { font-weight: 500; }
+  .maria-late-dot { width: 8px; height: 8px; border-radius: 50%; background: #065F46; flex-shrink: 0; }
 
-/* SIDEBAR */
-.sidebar-card{background:#fff;border:0.5px solid #E4E0D8;border-radius:10px;padding:12px;margin-bottom:10px}
-.sidebar-card-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:#6B635A;margin-bottom:8px;padding-bottom:4px;border-bottom:1px solid #E4E0D8}
-.shift-row{display:flex;align-items:center;gap:6px;padding:3px 0;border-bottom:0.5px solid #F0EDE8;font-size:10px}
-.shift-row:last-child{border-bottom:none}
-.shift-date{color:#6B635A;min-width:60px;font-size:10px}
-.shift-title{flex:1;color:#1A1714}
-.late-dot{width:7px;height:7px;border-radius:50%;background:#065F46;flex-shrink:0}
-.ccu-badge{background:#FEE2E2;color:#991B1B;font-size:9px;font-weight:600;padding:1px 5px;border-radius:3px}
+  /* SECTION 3 */
+  .three-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .s3-card { background: #fff; border: 0.5px solid #E4E0D8; border-radius: 10px; padding: 14px; }
+  .s3-card-title { font-family: 'DM Serif Display', serif; font-size: 15px; font-weight: 400; margin-bottom: 10px; }
+  .s3-week-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #9CA3AF; margin: 8px 0 4px; padding-bottom: 2px; border-bottom: 0.5px solid #E4E0D8; }
+  .s3-item { padding: 3px 0; border-bottom: 0.5px solid #F7F5F0; display: flex; flex-wrap: wrap; align-items: flex-start; gap: 4px; font-size: 11px; }
+  .s3-item:last-child { border-bottom: none; }
+  .s3-date-badge { font-size: 9px; font-weight: 600; color: #6B6560; min-width: 48px; flex-shrink: 0; padding-top: 1px; }
+  .s3-pill { display: inline-block; border-radius: 3px; padding: 1px 5px; font-size: 9.5px; font-weight: 500; }
+  .s3-pill-allie { background: #FCE7F3; color: #831843; }
+  .s3-pill-bkg { background: #F3F4F6; color: #831843; }
+  .s3-pill-family { background: #EAF3DE; color: #27500A; }
+  .s3-pill-miguel { background: #DBEAFE; color: #1E3A8A; }
+  .s3-pill-shift { background: #EFF6FF; color: #1E40AF; }
+  .s3-pill-personal { background: #FEF3C7; color: #92400E; }
+  .s3-pill-maria { background: #D1FAE5; color: #065F46; }
+  .s3-time { font-size: 9px; color: #9CA3AF; }
+  .s3-no-data { font-size: 11px; font-style: italic; color: #9CA3AF; }
 
-/* NEXT MONTH CARDS */
-.next-month-wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px}
-.nm-card{background:#fff;border:0.5px solid #E4E0D8;border-radius:10px;padding:14px}
-.nm-card-title{font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid #E4E0D8}
-.nm-card-title.pink{color:#831843}
-.nm-card-title.blue{color:#1E3A8A}
-.nm-card-title.teal{color:#065F46}
-.nm-week-label{font-size:9px;font-weight:600;text-transform:uppercase;color:#9CA3AF;letter-spacing:0.4px;margin:8px 0 3px;padding-top:4px;border-top:1px dashed #E4E0D8}
-.nm-week-label:first-child{margin-top:0;border-top:none}
-.nm-row{display:flex;align-items:flex-start;gap:6px;padding:3px 0;border-bottom:0.5px solid #F7F5F0;font-size:10px;line-height:1.4}
-.nm-row:last-child{border-bottom:none}
-.nm-date{min-width:56px;color:#6B635A;font-size:9px;font-weight:500;padding-top:1px}
-.nm-content{flex:1}
-.nm-pill{display:inline-block;border-radius:3px;font-size:9px;font-weight:500;padding:1px 5px;margin:1px 1px 0 0;line-height:1.4}
-.nm-pill.allie-key{background:#FCE7F3;color:#831843}
-.nm-pill.allie-bkg{background:#F3F4F6;color:#831843}
-.nm-pill.family{background:#EAF3DE;color:#27500A}
-.nm-pill.miguel-shift{background:#DBEAFE;color:#1E3A8A}
-.nm-pill.miguel-personal{background:#EDE9FE;color:#4C1D95}
-.nm-pill.holiday{background:#EAF3DE;color:#27500A}
-.nm-pill.alert{background:#FEF3C7;color:#92400E;border:1px solid #FDE68A}
-.nm-time{font-size:8px;color:#9CA3AF;margin-left:2px}
-.nm-empty{font-style:italic;color:#C4BDB5;font-size:10px;padding:10px 0}
-
-/* RESPONSIVE */
-@media(max-width:900px){
-  .grid7{grid-template-columns:repeat(4,1fr)}
-  .month-sidebar-wrap{grid-template-columns:1fr}
-  .next-month-wrap{grid-template-columns:1fr}
-}
-@media(max-width:600px){
-  .grid7{grid-template-columns:repeat(2,1fr)}
-  .topbar{flex-direction:column}
-  .topbar-meta{text-align:left}
-}
-@media(max-width:400px){
-  .grid7{grid-template-columns:1fr}
-}
+  @media (max-width: 900px) {
+    .week-grid { grid-template-columns: repeat(4, 1fr); }
+    .month-grid { grid-template-columns: repeat(7, 1fr); }
+    .section2-wrap { flex-direction: column; }
+    .cal-col, .sidebar-col { flex: none; width: 100%; }
+    .three-cards { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 500px) {
+    .week-grid { grid-template-columns: repeat(2, 1fr); }
+    .three-cards { grid-template-columns: 1fr; }
+    .top-bar-inner { flex-direction: column; }
+    .top-bar-meta { text-align: left; }
+  }
 </style>
 </head>
 <body>
-<div class="wrap">
 
 <!-- TOP BAR -->
-<div class="topbar">
-  <div>
-    <div class="topbar-title">Yaport–Levin Family Schedule</div>
-    <div class="legend-row">
-      <span class="leg-pill leg-maria">Maria</span>
-      <span class="leg-pill leg-miguel">Miguel</span>
-      <span class="leg-pill leg-allie">Allie Key</span>
-      <span class="leg-pill leg-family">Family/Holiday</span>
-      <span class="leg-pill leg-bkg">Allie Bkg</span>
-      <span class="leg-pill leg-alert">⚠ Alert</span>
+<div class="top-bar">
+  <div class="top-bar-inner">
+    <div>
+      <h1>Yaport–Levin Family Schedule</h1>
+      <div class="legend-row">
+        <span class="legend-pill leg-maria">● Maria</span>
+        <span class="legend-pill leg-miguel">● Miguel</span>
+        <span class="legend-pill leg-allie">● Allie</span>
+        <span class="legend-pill leg-family">● Family/Holiday</span>
+        <span class="legend-pill leg-bkg">● Background</span>
+      </div>
     </div>
+    <div class="top-bar-meta">Auto-updates twice daily<br>Last updated: Saturday, April 4, 2026</div>
   </div>
-  <div class="topbar-meta">Auto-updates twice daily<br>Last updated: Saturday, April 4, 2026</div>
 </div>
 
 <!-- SECTION 1: TWO-WEEK GRID -->
-<div class="sec-wrap">
-  <div class="sec-label">📅 Two-Week View</div>
+<div class="section-wrap">
+  <div class="section-title">Two-Week View</div>
 
   <!-- WEEK 1: Mar 30 – Apr 5 -->
-  <div class="week-label">This Week — Mar 30 – Apr 5, 2026</div>
-  <div class="grid7">
+  <div class="week-block">
+    <div class="week-label">This Week — Mar 30 – Apr 5, 2026</div>
+    <div class="week-grid">
 
-    <!-- Mon Mar 30 -->
-    <div class="day-col">
-      <div class="day-header"><span class="dow">Mon</span><span class="dom">Mar 30</span></div>
-      <div class="pinned-strip">
-        <div class="no-maria-bar">⚠ No Maria</div>
+      <!-- Mon Mar 30 -->
+      <div class="day-col">
+        <div class="day-header"><div class="dh-name">Mon</div><div class="dh-date">Mar 30</div></div>
+        <div class="pinned-strip"></div>
+        <div class="section-zone">
+          <div class="zone-label">Key</div>
+          <div class="empty-zone">—</div>
+        </div>
       </div>
-      <div class="zone">
-        <div class="zone-label">Key</div>
-        <span class="pill pill-alert">⚠ No childcare</span>
+
+      <!-- Tue Mar 31 -->
+      <div class="day-col">
+        <div class="day-header"><div class="dh-name">Tue</div><div class="dh-date">Mar 31</div></div>
+        <div class="pinned-strip"></div>
+        <div class="section-zone">
+          <div class="zone-label">Key</div>
+          <div class="empty-zone">—</div>
+        </div>
       </div>
+
+      <!-- Wed Apr 1 -->
+      <div class="day-col">
+        <div class="day-header"><div class="dh-name">Wed</div><div class="dh-date">Apr 1</div></div>
+        <div class="pinned-strip"></div>
+        <div class="section-zone">
+          <div class="zone-label">Key</div>
+          <div class="empty-zone">—</div>
+        </div>
+      </div>
+
+      <!-- Thu Apr 2 -->
+      <div class="day-col">
+        <div class="day-header"><div class="dh-name">Thu</div><div class="dh-date">Apr 2</div></div>
+        <div class="pinned-strip"></div>
+        <div class="section-zone">
+          <div class="zone-label">Key</div>
+          <div class="empty-zone">—</div>
+        </div>
+      </div>
+
+      <!-- Fri Apr 3 -->
+      <div class="day-col">
+        <div class="day-header"><div class="dh-name">Fri</div><div class="dh-date">Apr 3</div></div>
+        <div class="pinned-strip"></div>
+        <div class="section-zone">
+          <div class="zone-label">Key</div>
+          <div class="empty-zone">—</div>
+        </div>
+      </div>
+
+      <!-- Sat Apr 4 (TODAY) -->
+      <div class="day-col">
+        <div class="day-header today-header"><div class="dh-name">Sat ★ Today</div><div class="dh-date">Apr 4</div></div>
+        <div class="pinned-strip">
+          <span class="pill pill-miguel">CCU Shift – Day</span>
+        </div>
+        <div class="section-zone">
+          <div class="zone-label">Key</div>
+          <div class="empty-zone">—</div>
+        </div>
+      </div>
+
+      <!-- Sun Apr 5 -->
+      <div class="day-col">
+        <div class="day-header"><div class="dh-name">Sun</div><div class="dh-date">Apr 5</div></div>
+        <div class="pinned-strip">
+          <span class="pill pill-family">🌿 Easter 2026</span>
+          <span class="pill pill-maria">8:00–12:00</span>
+          <span class="pill pill-miguel">CCU Shift – Day</span>
+        </div>
+        <div class="section-zone">
+          <div class="zone-label">Key</div>
+          <div class="empty-zone">—</div>
+        </div>
+      </div>
+
     </div>
+  </div>
 
-    <!-- Tue Mar 31 -->
-    <div class="day-col">
-      <div class="day-header"><span class="dow">Tue</span><span class="dom">Mar 31</span></div>
-      <div class="pinned-strip">
-        <div class="no-maria-bar">⚠ No Maria</div>
+  <!-- WEEK 2: Apr 6 – Apr 12 -->
+  <div class="week-block">
+    <div class="week-label">Next Week — Apr 6 – Apr 12, 2026</div>
+    <div class="week-grid">
+
+      <!-- Mon Apr 6 -->
+      <div class="day-col">
+        <div class="day-header"><div class="dh-name">Mon</div><div class="dh-date">Apr 6</div></div>
+        <div class="pinned-strip">
+          <span class="pill pill-maria">7:30–7:30 🌙</span>
+          <span class="pill pill-miguel">CCU Shift – Day</span>
+        </div>
+        <div class="section-zone">
+          <div class="zone-label">Key</div>
+          <div class="empty-zone">—</div>
+        </div>
       </div>
-      <div class="zone">
-        <div class="zone-label">Key</div>
-        <span class="pill pill-alert">⚠ No childcare</span>
+
+      <!-- Tue Apr 7 -->
+      <div class="day-col">
+        <div class="day-header"><div class="dh-name">Tue</div><div class="dh-date">Apr 7</div></div>
+        <div class="pinned-strip">
+          <span class="pill pill-maria">7:30–7:30 🌙</span>
+          <span class="pill pill-miguel">CCU Shift – Day</span>
+        </div>
+        <div class="section-zone">
+          <div class="zone-label">Key</div>
+          <span class="pill pill-allie">5:00p Cardiology Grand Rounds – Paula Rambarat, MD</span>
+        </div>
       </div>
+
+      <!-- Wed Apr 8 -->
+      <div class="day-col">
+        <div class="day-header"><div class="dh-name">Wed</div><div class="dh-date">Apr 8</div></div>
+        <div class="pinned-strip">
+          <span class="pill pill-maria">7:30–5:30</span>
+          <span class="pill pill-miguel">Post Call</span>
+        </div>
+        <div class="section-zone">
+          <div class="zone-label">Key</div>
+          <span class="pill pill-allie">10:15a Fellows Seminar w/ Jonathon &amp; Liz Cook &amp; Scott Palmer</span>
+          <span class="pill pill-allie">11:30a CDC Biweekly Team Meeting</span>
+          <span class="pill pill-allie">4:00p AHFTC Lecture: Malignancies post OHT</span>
+          <span class="pill pill-miguel">3:00p Larry Westreich</span>
+        </div>
+        <hr class="zone-divider">
+        <div class="section-zone">
+          <div class="zone-label">Bkg</div>
+          <span class="pill pill-bkg">7:00a Imaging Conference – Fetal: Prenatal Counseling</span>
+          <span class="pill pill-bkg">7:20a CICU Conference</span>
+        </div>
+      </div>
+
+      <!-- Thu Apr 9 -->
+      <div class="day-col">
+        <div class="day-header"><div class="dh-name">Thu</div><div class="dh-date">Apr 9</div></div>
+        <div class="pinned-strip">
+          <span class="pill pill-family">🌿 Passover – Final Day</span>
+          <span class="pill pill-maria">7:30–5:30</span>
+          <span class="pill pill-miguel">Float / Available</span>
+        </div>
+        <div class="section-zone">
+          <div class="zone-label">Key</div>
+          <div class="empty-zone">—</div>
+        </div>
+        <hr class="zone-divider">
+        <div class="section-zone">
+          <div class="zone-label">Bkg</div>
+          <span class="pill pill-bkg">7:00a Heart Listing Conference</span>
+          <span class="pill pill-bkg">5:30p Case Presentations</span>
+        </div>
+      </div>
+
+      <!-- Fri Apr 10 -->
+      <div class="day-col">
+        <div class="day-header"><div class="dh-name">Fri</div><div class="dh-date">Apr 10</div></div>
+        <div class="pinned-strip">
+          <span class="pill pill-maria">7:30–5:30</span>
+          <span class="pill pill-miguel">2nd Call</span>
+        </div>
+        <div class="section-zone">
+          <div class="zone-label">Key</div>
+          <div class="empty-zone">—</div>
+        </div>
+      </div>
+
+      <!-- Sat Apr 11 -->
+      <div class="day-col">
+        <div class="day-header"><div class="dh-name">Sat</div><div class="dh-date">Apr 11</div></div>
+        <div class="pinned-strip"></div>
+        <div class="section-zone">
+          <div class="zone-label">Key</div>
+          <div class="empty-zone">—</div>
+        </div>
+      </div>
+
+      <!-- Sun Apr 12 -->
+      <div class="day-col">
+        <div class="day-header"><div class="dh-name">Sun</div><div class="dh-date">Apr 12</div></div>
+        <div class="pinned-strip"></div>
+        <div class="section-zone">
+          <div class="zone-label">Key</div>
+          <div class="empty-zone">—</div>
+        </div>
+      </div>
+
     </div>
+  </div>
+</div>
 
-    <!-- Wed Apr 1 -->
-    <div class="day-col">
-      <div class="day-header"><span class="dow">Wed</span><span class="dom">Apr 1</span></div>
-      <div class="pinned-strip">
-        <div class="no-maria-bar">⚠ No Maria</div>
-      </div>
-      <div class="zone">
-        <div class="zone-label">Key</div>
-        <span class="pill pill-alert">⚠ No childcare</span>
-      </div>
-    </div>
-
-    <!-- Thu Apr 2 -->
-    <div class="day-col">
-      <div class="day-header"><span class="dow">Thu</span><span class="dom">Apr 2</span></div>
-      <div class="pinned-strip">
-        <div class="no-maria-bar">⚠ No Maria</div>
-      </div>
-      <div class="zone">
-        <div class="zone-label">Key</div>
-        <span class="pill pill-alert">⚠ No childcare</span>
-      </div>
-    </div>
-
-    <!-- Fri Apr 3 -->
-    <div class="day-col">
-      <div class="day-header"><span class="dow">Fri</span><span class="dom">Apr 3</span></div>
-      <div class="pinned-strip">
-        <div class="no-maria-bar">⚠ No Maria</div>
-      </div>
-      <div class="zone">
-        <div class="zone-label">Key</div>
-        <span class="pill pill-alert">⚠ No childcare</span>
-      </div>
-    </div>
-
-    <!-- Sat Apr 4 — TODAY -->
-    <div class="day-col today">
-      <div class="day-header"><span class="dow">Sat ★</span><span class="dom">Apr 4</span></div>
-      <div class="pinned-strip">
-        <span class="pill pill-miguel">CCU Day</span>
-      </div>
-      <div class="zone">
-        <div class="zone-label">Key</div>
-        <span class="pill pill-family">CCU Shift</span>
-      </div>
-    </div>
-
-    <!-- Sun Apr 5 -->
-    <div class="day-col">
-      <div class="day-header"><span class="dow">Sun</span><span class="dom">Apr 5</span></div>
-      <div class="pinned-strip">
-        <span class="pill pill-family">🐣 Easter 2026</span>
-        <span class="pill pill-maria">8–12</span>
-        <span class="pill pill-miguel">CCU Day</span>
-      </div>
-      <div class="zone">
-        <div class="zone-label">Key</div>
-        <span class="pill pill-family">Easter Sunday</span>
-      </div>
-    </div>
-
-  </div><!-- end week1 grid -->
-
-  <!-- WEEK 2: Apr 6 – Apr 13 (Mon–Sun, but data goes to Apr 13) -->
-  <div class="week-label" style="margin-top:10px">Next Week — Apr 6 – Apr 13, 2026</div>
-  <div class="grid7">
-
-    <!-- Mon Apr 6 -->
-    <div class="day-col">
-      <div class="day-header"><span class="dow">Mon</span><span class="dom">Apr 6</span></div>
-      <div class="pinned-strip">
-        <span class="pill pill-maria">7:30–7:30 🌙</span>
-        <span class="pill pill-miguel">CCU Day</span>
-      </div>
-      <div class="zone">
-        <div class="zone-label">Key</div>
-        <div class="zone-empty">—</div>
-      </div>
-    </div>
-
-    <!-- Tue Apr 7 -->
-    <div class="day-col">
-      <div class="day-header"><span class="dow">Tue</span><span class="dom">Apr 7</span></div>
-      <div class="pinned-strip">
-        <span class="pill pill-maria">7:30–7:30 🌙</span>
-        <span class="pill pill-miguel">CCU Day</span>
-      </div>
-      <div class="zone">
-        <div class="zone-label">Key</div>
-        <div class="zone-empty">—</div>
-      </div>
-      <div class="zone">
-        <div class="zone-label">Bkg</div>
-        <span class="pill pill-bkg">Cardiology Grand Rounds 5–6pm</span>
-      </div>
-    </div>
-
-    <!-- Wed Apr 8 -->
-    <div class="day-col">
-      <div class="day-header"><span class="dow">Wed</span><span class="dom">Apr 8</span></div>
-      <div class="pinned-strip">
-        <span class="pill pill-maria">7:30–5:30</span>
-        <span class="pill pill-miguel">Post Call</span>
-      </div>
-      <div class="zone">
-        <div class="zone-label">Key</div>
-        <span class="pill pill-allie-key">Fellows Seminar 10:15</span>
-        <span class="pill pill-allie-key">CDC Mtg 11:30</span>
-        <span class="pill pill-allie-key">AHFTC Lecture 4pm</span>
-        <span class="pill pill-miguel">Larry Westreich 3pm</span>
-      </div>
-      <div class="zone">
-        <div class="zone-label">Bkg</div>
-        <span class="pill pill-bkg">Imaging Conf 7am</span>
-        <span class="pill pill-bkg">CICU Conf 7:20am</span>
-      </div>
-    </div>
-
-    <!-- Thu Apr 9 -->
-    <div class="day-col">
-      <div class="day-header"><span class="dow">Thu</span><span class="dom">Apr 9</span></div>
-      <div class="pinned-strip">
-        <span class="pill pill-family">🕍 Passover End</span>
-        <span class="pill pill-maria">7:30–5:30</span>
-        <span class="pill pill-miguel">Float/Avail</span>
-      </div>
-      <div class="zone">
-        <div class="zone-label">Key</div>
-        <div class="zone-empty">—</div>
-      </div>
-      <div class="zone">
-        <div class="zone-label">Bkg</div>
-        <span class="pill pill-bkg">Heart Listing 7am</span>
-        <span class="pill pill-bkg">Case Pres 5:30pm</span>
-      </div>
-    </div>
-
-    <!-- Fri Apr 10 -->
-    <div class="day-col">
-      <div class="day-header"><span class="dow">Fri</span><span class="dom">Apr 10</span></div>
-      <div class="pinned-strip">
-        <span class="pill pill-maria">7:30–5:30</span>
-        <span class="pill pill-miguel">2nd Call</span>
-      </div>
-      <div class="zone">
-        <div class="zone-label">Key</div>
-        <div class="zone-empty">—</div>
-      </div>
-    </div>
-
-    <!-- Sat Apr 11 -->
-    <div class="day-col">
-      <div class="day-header"><span class="dow">Sat</span><span class="dom">Apr 11</span></div>
-      <div class="pinned-strip"></div>
-      <div class="zone">
-        <div class="zone-label">Key</div>
-        <div class="zone-empty">—</div>
-      </div>
-    </div>
-
-    <!-- Sun Apr 12 -->
-    <div class="day-col">
-      <div class="day-header"><span class="dow">Sun</span><span class="dom">Apr 12</span></div>
-      <div class="pinned-strip"></div>
-      <div class="zone">
-        <div class="zone-label">Key</div>
-        <div class="zone-empty">—</div>
-      </div>
-    </div>
-
-  </div><!-- end week2 grid -->
-</div><!-- end sec-wrap -->
+<hr class="section-divider">
 
 <!-- SECTION 2: FULL MONTH CALENDAR + SIDEBAR -->
-<div class="sec-wrap">
-  <div class="sec-label">📆 April 2026 — Full Month</div>
-  <div class="month-sidebar-wrap">
+<div class="section-wrap">
+  <div class="section-title">April 2026 — Full Month</div>
+  <div class="section2-wrap">
 
-    <!-- CALENDAR -->
-    <div>
-      <div class="cal-grid">
-        <div class="cal-dow">Mon</div>
-        <div class="cal-dow">Tue</div>
-        <div class="cal-dow">Wed</div>
-        <div class="cal-dow">Thu</div>
-        <div class="cal-dow">Fri</div>
-        <div class="cal-dow">Sat</div>
-        <div class="cal-dow">Sun</div>
+    <!-- LEFT: Calendar -->
+    <div class="cal-col">
+      <div class="month-grid">
+        <!-- Headers -->
+        <div class="month-col-header">Mon</div>
+        <div class="month-col-header">Tue</div>
+        <div class="month-col-header">Wed</div>
+        <div class="month-col-header">Thu</div>
+        <div class="month-col-header">Fri</div>
+        <div class="month-col-header">Sat</div>
+        <div class="month-col-header">Sun</div>
 
-        <!-- Week 1: Mar 30 – Apr 5 -->
-        <!-- Mar 30 Mon -->
-        <div class="cal-day other-month"><span class="cal-dn">30</span><small style="color:#C4BDB5;font-size:8px">Mar</small></div>
-        <!-- Mar 31 Tue -->
-        <div class="cal-day other-month"><span class="cal-dn">31</span><small style="color:#C4BDB5;font-size:8px">Mar</small></div>
+        <!-- Week 1: Apr 1 starts on Wed -->
+        <div class="month-day empty-day"></div>
+        <div class="month-day empty-day"></div>
         <!-- Apr 1 Wed -->
-        <div class="cal-day"><span class="cal-dn">1</span></div>
+        <div class="month-day">
+          <div class="md-num">1</div>
+          <div class="md-dots"></div>
+        </div>
         <!-- Apr 2 Thu -->
-        <div class="cal-day"><span class="cal-dn">2</span></div>
+        <div class="month-day">
+          <div class="md-num">2</div>
+        </div>
         <!-- Apr 3 Fri -->
-        <div class="cal-day"><span class="cal-dn">3</span></div>
-        <!-- Apr 4 Sat — CCU, TODAY -->
-        <div class="cal-day ccu-day today-cal"><span class="cal-dn">4</span><span class="cal-dot cal-dot-miguel" title="CCU"></span><span style="font-size:8px;display:block;color:#991B1B;font-weight:600">CCU ★Today</span></div>
-        <!-- Apr 5 Sun — CCU, Maria, Easter -->
-        <div class="cal-day ccu-day"><span class="cal-dn">5</span><span class="cal-dot cal-dot-miguel"></span><span class="cal-dot cal-dot-maria"></span><span class="cal-dot cal-dot-family"></span><span style="font-size:8px;display:block;color:#991B1B;font-weight:600">CCU · 🐣Easter</span></div>
+        <div class="month-day">
+          <div class="md-num">3</div>
+        </div>
+        <!-- Apr 4 Sat — CCU -->
+        <div class="month-day ccu-day">
+          <div class="md-num">4</div>
+          <div class="md-dots"><span class="md-dot md-dot-miguel"></span></div>
+          <div class="md-label">CCU · TODAY</div>
+        </div>
+        <!-- Apr 5 Sun — CCU + Easter + Maria -->
+        <div class="month-day ccu-day">
+          <div class="md-num">5</div>
+          <div class="md-dots"><span class="md-dot md-dot-miguel"></span><span class="md-dot md-dot-family"></span><span class="md-dot md-dot-maria"></span></div>
+          <div class="md-label">CCU · Easter · Maria 8–12</div>
+        </div>
 
         <!-- Week 2: Apr 6–12 -->
-        <!-- Apr 6 Mon — CCU + late Maria -->
-        <div class="cal-day ccu-day late-maria"><span class="cal-dn">6</span><span class="cal-dot cal-dot-miguel"></span><span class="cal-dot cal-dot-maria"></span><span style="font-size:8px;display:block;color:#991B1B;font-weight:600">CCU · Maria🌙</span></div>
-        <!-- Apr 7 Tue — CCU + late Maria -->
-        <div class="cal-day ccu-day late-maria"><span class="cal-dn">7</span><span class="cal-dot cal-dot-miguel"></span><span class="cal-dot cal-dot-maria"></span><span class="cal-dot cal-dot-allie"></span><span style="font-size:8px;display:block;color:#991B1B;font-weight:600">CCU · Maria🌙</span></div>
-        <!-- Apr 8 Wed -->
-        <div class="cal-day"><span class="cal-dn">8</span><span class="cal-dot cal-dot-allie"></span><span class="cal-dot cal-dot-maria"></span><span style="font-size:8px;display:block;color:#6B635A">PostCall · Allie</span></div>
-        <!-- Apr 9 Thu — Passover -->
-        <div class="cal-day"><span class="cal-dn">9</span><span class="cal-dot cal-dot-family"></span><span class="cal-dot cal-dot-maria"></span><span style="font-size:8px;display:block;color:#6B635A">Float · Passover</span></div>
-        <!-- Apr 10 Fri -->
-        <div class="cal-day"><span class="cal-dn">10</span><span class="cal-dot cal-dot-miguel"></span><span class="cal-dot cal-dot-maria"></span><span style="font-size:8px;display:block;color:#6B635A">2ndCall</span></div>
+        <!-- Apr 6 Mon — CCU + Maria Late -->
+        <div class="month-day ccu-day late-maria">
+          <div class="md-num">6</div>
+          <div class="md-dots"><span class="md-dot md-dot-miguel"></span><span class="md-dot md-dot-maria"></span></div>
+          <div class="md-label">CCU · Maria late</div>
+        </div>
+        <!-- Apr 7 Tue — CCU + Maria Late -->
+        <div class="month-day ccu-day late-maria">
+          <div class="md-num">7</div>
+          <div class="md-dots"><span class="md-dot md-dot-miguel"></span><span class="md-dot md-dot-maria"></span><span class="md-dot md-dot-allie"></span></div>
+          <div class="md-label">CCU · Maria late · Rounds</div>
+        </div>
+        <!-- Apr 8 Wed — Post Call + Maria -->
+        <div class="month-day">
+          <div class="md-num">8</div>
+          <div class="md-dots"><span class="md-dot md-dot-miguel"></span><span class="md-dot md-dot-allie"></span><span class="md-dot md-dot-maria"></span></div>
+          <div class="md-label">Post Call · Fellows Sem.</div>
+        </div>
+        <!-- Apr 9 Thu — Float + Passover + Maria -->
+        <div class="month-day">
+          <div class="md-num">9</div>
+          <div class="md-dots"><span class="md-dot md-dot-family"></span><span class="md-dot md-dot-maria"></span></div>
+          <div class="md-label">Passover end · Float</div>
+        </div>
+        <!-- Apr 10 Fri — 2nd Call + Maria -->
+        <div class="month-day">
+          <div class="md-num">10</div>
+          <div class="md-dots"><span class="md-dot md-dot-miguel"></span><span class="md-dot md-dot-maria"></span></div>
+          <div class="md-label">2nd Call</div>
+        </div>
         <!-- Apr 11 Sat -->
-        <div class="cal-day"><span class="cal-dn">11</span></div>
+        <div class="month-day">
+          <div class="md-num">11</div>
+        </div>
         <!-- Apr 12 Sun -->
-        <div class="cal-day"><span class="cal-dn">12</span></div>
+        <div class="month-day">
+          <div class="md-num">12</div>
+        </div>
 
         <!-- Week 3: Apr 13–19 -->
-        <!-- Apr 13 Mon — late Maria -->
-        <div class="cal-day late-maria"><span class="cal-dn">13</span><span class="cal-dot cal-dot-maria"></span><span style="font-size:8px;display:block;color:#065F46">Maria🌙</span></div>
-        <!-- Apr 14 Tue -->
-        <div class="cal-day"><span class="cal-dn">14</span><span class="cal-dot cal-dot-maria"></span></div>
-        <!-- Apr 15 Wed — late Maria -->
-        <div class="cal-day late-maria"><span class="cal-dn">15</span><span class="cal-dot cal-dot-maria"></span><span style="font-size:8px;display:block;color:#065F46">Maria🌙</span></div>
-        <!-- Apr 16 Thu -->
-        <div class="cal-day"><span class="cal-dn">16</span><span class="cal-dot cal-dot-maria"></span></div>
-        <!-- Apr 17 Fri — CCU + late Maria -->
-        <div class="cal-day ccu-day late-maria"><span class="cal-dn">17</span><span class="cal-dot cal-dot-miguel"></span><span class="cal-dot cal-dot-maria"></span><span style="font-size:8px;display:block;color:#991B1B;font-weight:600">CCU · Maria🌙</span></div>
+        <!-- Apr 13 Mon — Maria Late -->
+        <div class="month-day late-maria">
+          <div class="md-num">13</div>
+          <div class="md-dots"><span class="md-dot md-dot-maria"></span></div>
+          <div class="md-label">Maria 9–7:30</div>
+        </div>
+        <!-- Apr 14 Tue — Maria -->
+        <div class="month-day">
+          <div class="md-num">14</div>
+          <div class="md-dots"><span class="md-dot md-dot-maria"></span></div>
+          <div class="md-label">Maria 7:30–5:30</div>
+        </div>
+        <!-- Apr 15 Wed — Maria Late -->
+        <div class="month-day late-maria">
+          <div class="md-num">15</div>
+          <div class="md-dots"><span class="md-dot md-dot-maria"></span></div>
+          <div class="md-label">Maria 7:30–7:30</div>
+        </div>
+        <!-- Apr 16 Thu — Maria -->
+        <div class="month-day">
+          <div class="md-num">16</div>
+          <div class="md-dots"><span class="md-dot md-dot-maria"></span></div>
+          <div class="md-label">Maria 7:30–5:30</div>
+        </div>
+        <!-- Apr 17 Fri — CCU + Maria Late -->
+        <div class="month-day ccu-day late-maria">
+          <div class="md-num">17</div>
+          <div class="md-dots"><span class="md-dot md-dot-miguel"></span><span class="md-dot md-dot-maria"></span></div>
+          <div class="md-label">CCU · Maria late</div>
+        </div>
         <!-- Apr 18 Sat — CCU -->
-        <div class="cal-day ccu-day"><span class="cal-dn">18</span><span class="cal-dot cal-dot-miguel"></span><span style="font-size:8px;display:block;color:#991B1B;font-weight:600">CCU</span></div>
+        <div class="month-day ccu-day">
+          <div class="md-num">18</div>
+          <div class="md-dots"><span class="md-dot md-dot-miguel"></span></div>
+          <div class="md-label">CCU</div>
+        </div>
         <!-- Apr 19 Sun — CCU -->
-        <div class="cal-day ccu-day"><span class="cal-dn">19</span><span class="cal-dot cal-dot-miguel"></span><span style="font-size:8px;display:block;color:#991B1B;font-weight:600">CCU</span></div>
+        <div class="month-day ccu-day">
+          <div class="md-num">19</div>
+          <div class="md-dots"><span class="md-dot md-dot-miguel"></span></div>
+          <div class="md-label">CCU</div>
+        </div>
 
         <!-- Week 4: Apr 20–26 -->
-        <!-- Apr 20 Mon — late Maria -->
-        <div class="cal-day late-maria"><span class="cal-dn">20</span><span class="cal-dot cal-dot-maria"></span><span style="font-size:8px;display:block;color:#065F46">Maria🌙</span></div>
-        <!-- Apr 21 Tue -->
-        <div class="cal-day"><span class="cal-dn">21</span><span class="cal-dot cal-dot-maria"></span></div>
-        <!-- Apr 22 Wed — late Maria -->
-        <div class="cal-day late-maria"><span class="cal-dn">22</span><span class="cal-dot cal-dot-maria"></span><span style="font-size:8px;display:block;color:#065F46">Maria🌙</span></div>
-        <!-- Apr 23 Thu -->
-        <div class="cal-day"><span class="cal-dn">23</span><span class="cal-dot cal-dot-maria"></span></div>
-        <!-- Apr 24 Fri -->
-        <div class="cal-day"><span class="cal-dn">24</span><span class="cal-dot cal-dot-maria"></span></div>
+        <!-- Apr 20 Mon — Maria Late -->
+        <div class="month-day late-maria">
+          <div class="md-num">20</div>
+          <div class="md-dots"><span class="md-dot md-dot-maria"></span></div>
+          <div class="md-label">Maria 7:30–7:30</div>
+        </div>
+        <!-- Apr 21 Tue — Maria -->
+        <div class="month-day">
+          <div class="md-num">21</div>
+          <div class="md-dots"><span class="md-dot md-dot-maria"></span></div>
+          <div class="md-label">Maria 7:30–5:30</div>
+        </div>
+        <!-- Apr 22 Wed — Maria Late -->
+        <div class="month-day late-maria">
+          <div class="md-num">22</div>
+          <div class="md-dots"><span class="md-dot md-dot-maria"></span></div>
+          <div class="md-label">Maria 7:30–7:30</div>
+        </div>
+        <!-- Apr 23 Thu — Maria -->
+        <div class="month-day">
+          <div class="md-num">23</div>
+          <div class="md-dots"><span class="md-dot md-dot-maria"></span></div>
+          <div class="md-label">Maria 7:30–5:30</div>
+        </div>
+        <!-- Apr 24 Fri — Maria -->
+        <div class="month-day">
+          <div class="md-num">24</div>
+          <div class="md-dots"><span class="md-dot md-dot-maria"></span></div>
+          <div class="md-label">Maria 7:30–5:30</div>
+        </div>
         <!-- Apr 25 Sat -->
-        <div class="cal-day"><span class="cal-dn">25</span></div>
+        <div class="month-day">
+          <div class="md-num">25</div>
+        </div>
         <!-- Apr 26 Sun -->
-        <div class="cal-day"><span class="cal-dn">26</span></div>
+        <div class="month-day">
+          <div class="md-num">26</div>
+        </div>
 
-        <!-- Week 5: Apr 27–30 + May 1–3 -->
-        <!-- Apr 27 Mon — late Maria -->
-        <div class="cal-day late-maria"><span class="cal-dn">27</span><span class="cal-dot cal-dot-maria"></span><span style="font-size:8px;display:block;color:#065F46">Maria🌙</span></div>
-        <!-- Apr 28 Tue -->
-        <div class="cal-day"><span class="cal-dn">28</span><span class="cal-dot cal-dot-maria"></span></div>
-        <!-- Apr 29 Wed — late Maria -->
-        <div class="cal-day late-maria"><span class="cal-dn">29</span><span class="cal-dot cal-dot-maria"></span><span style="font-size:8px;display:block;color:#065F46">Maria🌙</span></div>
-        <!-- Apr 30 Thu — late Maria -->
-        <div class="cal-day late-maria"><span class="cal-dn">30</span><span class="cal-dot cal-dot-maria"></span><span style="font-size:8px;display:block;color:#065F46">Maria🌙</span></div>
-        <!-- May 1 Fri -->
-        <div class="cal-day other-month"><span class="cal-dn">1</span><small style="color:#C4BDB5;font-size:8px">May</small></div>
-        <!-- May 2 Sat -->
-        <div class="cal-day other-month"><span class="cal-dn">2</span><small style="color:#C4BDB5;font-size:8px">May</small></div>
-        <!-- May 3 Sun -->
-        <div class="cal-day other-month"><span class="cal-dn">3</span><small style="color:#C4BDB5;font-size:8px">May</small></div>
+        <!-- Week 5: Apr 27–30 + empty -->
+        <!-- Apr 27 Mon — Maria Late -->
+        <div class="month-day late-maria">
+          <div class="md-num">27</div>
+          <div class="md-dots"><span class="md-dot md-dot-maria"></span></div>
+          <div class="md-label">Maria 7:30–7:30</div>
+        </div>
+        <!-- Apr 28 Tue — Maria -->
+        <div class="month-day">
+          <div class="md-num">28</div>
+          <div class="md-dots"><span class="md-dot md-dot-maria"></span></div>
+          <div class="md-label">Maria 7:30–5:30</div>
+        </div>
+        <!-- Apr 29 Wed — Maria Late -->
+        <div class="month-day late-maria">
+          <div class="md-num">29</div>
+          <div class="md-dots"><span class="md-dot md-dot-maria"></span></div>
+          <div class="md-label">Maria 7:30–7:30</div>
+        </div>
+        <!-- Apr 30 Thu — Maria Late -->
+        <div class="month-day late-maria">
+          <div class="md-num">30</div>
+          <div class="md-dots"><span class="md-dot md-dot-maria"></span></div>
+          <div class="md-label">Maria 10–8:00</div>
+        </div>
+        <div class="month-day empty-day"></div>
+        <div class="month-day empty-day"></div>
+        <div class="month-day empty-day"></div>
       </div>
 
       <!-- Legend -->
       <div class="cal-legend">
-        <div class="cal-leg-item">
-          <div class="cal-leg-box" style="background:#FEE2E2;border-color:#FECACA"></div>
-          <span>CCU Day</span>
-        </div>
-        <div class="cal-leg-item">
-          <div class="cal-leg-box" style="background:#fff;border:3px solid #065F46"></div>
-          <span>Maria Late Shift (after 5:30pm)</span>
-        </div>
-        <div class="cal-leg-item">
-          <div class="cal-leg-box" style="background:#FEE2E2;border:3px solid #065F46"></div>
-          <span>CCU + Maria Late</span>
-        </div>
-        <div class="cal-leg-item">
-          <div style="width:14px;height:14px;border-radius:2px;border:2px solid #1A1714"></div>
-          <span>Today</span>
-        </div>
+        <div class="cal-legend-item"><div class="cl-swatch cl-ccu"></div> CCU Day</div>
+        <div class="cal-legend-item"><div class="cl-swatch cl-late"></div> Maria working late (&gt;5:30pm)</div>
+        <div class="cal-legend-item"><div class="cl-swatch cl-both"></div> CCU + Late Maria</div>
+        <div class="cal-legend-item"><span class="md-dot md-dot-maria" style="width:8px;height:8px;display:inline-block;border-radius:50%;"></span> Maria shift</div>
+        <div class="cal-legend-item"><span class="md-dot md-dot-miguel" style="width:8px;height:8px;display:inline-block;border-radius:50%;"></span> Miguel shift</div>
+        <div class="cal-legend-item"><span class="md-dot md-dot-allie" style="width:8px;height:8px;display:inline-block;border-radius:50%;"></span> Allie event</div>
+        <div class="cal-legend-item"><span class="md-dot md-dot-family" style="width:8px;height:8px;display:inline-block;border-radius:50%;"></span> Family/Holiday</div>
       </div>
     </div>
 
-    <!-- SIDEBAR -->
-    <div>
+    <!-- RIGHT: Sidebar -->
+    <div class="sidebar-col">
+
       <!-- CCU Days Card -->
-      <div class="sidebar-card">
-        <div class="sidebar-card-title">🏥 CCU Days — April 2026</div>
-        <div class="shift-row"><span class="shift-date">Sat, Apr 4</span><span class="ccu-badge">CCU Day</span></div>
-        <div class="shift-row"><span class="shift-date">Sun, Apr 5</span><span class="ccu-badge">CCU Day</span></div>
-        <div class="shift-row"><span class="shift-date">Mon, Apr 6</span><span class="ccu-badge">CCU Day</span></div>
-        <div class="shift-row"><span class="shift-date">Tue, Apr 7</span><span class="ccu-badge">CCU Day</span></div>
-        <div class="shift-row"><span class="shift-date">Fri, Apr 17</span><span class="ccu-badge">CCU Day</span></div>
-        <div class="shift-row"><span class="shift-date">Sat, Apr 18</span><span class="ccu-badge">CCU Day</span></div>
-        <div class="shift-row"><span class="shift-date">Sun, Apr 19</span><span class="ccu-badge">CCU Day</span></div>
+      <div class="card">
+        <div class="card-title" style="color:#991B1B;">CCU Days — April 2026</div>
+        <div class="ccu-list-item"><span class="ccu-dot"></span><span>Sat, Apr 4</span></div>
+        <div class="ccu-list-item"><span class="ccu-dot"></span><span>Sun, Apr 5</span></div>
+        <div class="ccu-list-item"><span class="ccu-dot"></span><span>Mon, Apr 6 <span style="font-size:9px;color:#065F46;font-weight:600;">+ Maria late</span></span></div>
+        <div class="ccu-list-item"><span class="ccu-dot"></span><span>Tue, Apr 7 <span style="font-size:9px;color:#065F46;font-weight:600;">+ Maria late</span></span></div>
+        <div class="ccu-list-item"><span class="ccu-dot"></span><span>Fri, Apr 17 <span style="font-size:9px;color:#065F46;font-weight:600;">+ Maria late</span></span></div>
+        <div class="ccu-list-item"><span class="ccu-dot"></span><span>Sat, Apr 18</span></div>
+        <div class="ccu-list-item"><span class="ccu-dot"></span><span>Sun, Apr 19</span></div>
       </div>
 
       <!-- Maria Shifts Card -->
-      <div class="sidebar-card">
-        <div class="sidebar-card-title">👩 Maria's Shifts — April 2026</div>
-        <div class="shift-row"><span class="shift-date">Sun, Apr 5</span><span class="shift-title">8:00–12:00</span></div>
-        <div class="shift-row"><span class="shift-date">Mon, Apr 6</span><span class="shift-title">7:30–7:30</span><span class="late-dot" title="Late shift"></span></div>
-        <div class="shift-row"><span class="shift-date">Tue, Apr 7</span><span class="shift-title">7:30–7:30</span><span class="late-dot" title="Late shift"></span></div>
-        <div class="shift-row"><span class="shift-date">Wed, Apr 8</span><span class="shift-title">7:30–5:30</span></div>
-        <div class="shift-row"><span class="shift-date">Thu, Apr 9</span><span class="shift-title">7:30–5:30</span></div>
-        <div class="shift-row"><span class="shift-date">Fri, Apr 10</span><span class="shift-title">7:30–5:30</span></div>
-        <div class="shift-row"><span class="shift-date">Mon, Apr 13</span><span class="shift-title">9:00–7:30</span><span class="late-dot" title="Late shift"></span></div>
-        <div class="shift-row"><span class="shift-date">Tue, Apr 14</span><span class="shift-title">7:30–5:30</span></div>
-        <div class="shift-row"><span class="shift-date">Wed, Apr 15</span><span class="shift-title">7:30–7:30</span><span class="late-dot" title="Late shift"></span></div>
-        <div class="shift-row"><span class="shift-date">Thu, Apr 16</span><span class="shift-title">7:30–5:30</span></div>
-        <div class="shift-row"><span class="shift-date">Fri, Apr 17</span><span class="shift-title">7:30–7:30</span><span class="late-dot" title="Late shift"></span></div>
-        <div class="shift-row"><span class="shift-date">Mon, Apr 20</span><span class="shift-title">7:30–7:30</span><span class="late-dot" title="Late shift"></span></div>
-        <div class="shift-row"><span class="shift-date">Tue, Apr 21</span><span class="shift-title">7:30–5:30</span></div>
-        <div class="shift-row"><span class="shift-date">Wed, Apr 22</span><span class="shift-title">7:30–7:30</span><span class="late-dot" title="Late shift"></span></div>
-        <div class="shift-row"><span class="shift-date">Thu, Apr 23</span><span class="shift-title">7:30–5:30</span></div>
-        <div class="shift-row"><span class="shift-date">Fri, Apr 24</span><span class="shift-title">7:30–5:30</span></div>
-        <div class="shift-row"><span class="shift-date">Mon, Apr 27</span><span class="shift-title">7:30–7:30</span><span class="late-dot" title="Late shift"></span></div>
-        <div class="shift-row"><span class="shift-date">Tue, Apr 28</span><span class="shift-title">7:30–5:30</span></div>
-        <div class="shift-row"><span class="shift-date">Wed, Apr 29</span><span class="shift-title">7:30–7:30</span><span class="late-dot" title="Late shift"></span></div>
-        <div class="shift-row"><span class="shift-date">Thu, Apr 30</span><span class="shift-title">10:00–8:00</span><span class="late-dot" title="Late shift"></span></div>
-        <div style="margin-top:6px;font-size:9px;color:#6B635A;display:flex;align-items:center;gap:4px"><span class="late-dot"></span> = late shift (ends after 5:30pm)</div>
+      <div class="card">
+        <div class="card-title" style="color:#065F46;">Maria's Shifts — April 2026</div>
+        <div class="maria-list-item"><span class="maria-date">Sun Apr 5</span><span class="maria-hours">8:00–12:00</span><span style="width:8px;"></span></div>
+        <div class="maria-list-item"><span class="maria-date">Mon Apr 6</span><span class="maria-hours">7:30–7:30</span><span class="maria-late-dot" title="Late shift"></span></div>
+        <div class="maria-list-item"><span class="maria-date">Tue Apr 7</span><span class="maria-hours">7:30–7:30</span><span class="maria-late-dot" title="Late shift"></span></div>
+        <div class="maria-list-item"><span class="maria-date">Wed Apr 8</span><span class="maria-hours">7:30–5:30</span><span style="width:8px;"></span></div>
+        <div class="maria-list-item"><span class="maria-date">Thu Apr 9</span><span class="maria-hours">7:30–5:30</span><span style="width:8px;"></span></div>
+        <div class="maria-list-item"><span class="maria-date">Fri Apr 10</span><span class="maria-hours">7:30–5:30</span><span style="width:8px;"></span></div>
+        <div class="maria-list-item"><span class="maria-date">Mon Apr 13</span><span class="maria-hours">9:00–7:30</span><span class="maria-late-dot" title="Late shift"></span></div>
+        <div class="maria-list-item"><span class="maria-date">Tue Apr 14</span><span class="maria-hours">7:30–5:30</span><span style="width:8px;"></span></div>
+        <div class="maria-list-item"><span class="maria-date">Wed Apr 15</span><span class="maria-hours">7:30–7:30</span><span class="maria-late-dot" title="Late shift"></span></div>
+        <div class="maria-list-item"><span class="maria-date">Thu Apr 16</span><span class="maria-hours">7:30–5:30</span><span style="width:8px;"></span></div>
+        <div class="maria-list-item"><span class="maria-date">Fri Apr 17</span><span class="maria-hours">7:30–7:30</span><span class="maria-late-dot" title="Late shift"></span></div>
+        <div class="maria-list-item"><span class="maria-date">Mon Apr 20</span><span class="maria-hours">7:30–7:30</span><span class="maria-late-dot" title="Late shift"></span></div>
+        <div class="maria-list-item"><span class="maria-date">Tue Apr 21</span><span class="maria-hours">7:30–5:30</span><span style="width:8px;"></span></div>
+        <div class="maria-list-item"><span class="maria-date">Wed Apr 22</span><span class="maria-hours">7:30–7:30</span><span class="maria-late-dot" title="Late shift"></span></div>
+        <div class="maria-list-item"><span class="maria-date">Thu Apr 23</span><span class="maria-hours">7:30–5:30</span><span style="width:8px;"></span></div>
+        <div class="maria-list-item"><span class="maria-date">Fri Apr 24</span><span class="maria-hours">7:30–5:30</span><span style="width:8px;"></span></div>
+        <div class="maria-list-item"><span class="maria-date">Mon Apr 27</span><span class="maria-hours">7:30–7:30</span><span class="maria-late-dot" title="Late shift"></span></div>
+        <div class="maria-list-item"><span class="maria-date">Tue Apr 28</span><span class="maria-hours">7:30–5:30</span><span style="width:8px;"></span></div>
+        <div class="maria-list-item"><span class="maria-date">Wed Apr 29</span><span class="maria-hours">7:30–7:30</span><span class="maria-late-dot" title="Late shift"></span></div>
+        <div class="maria-list-item"><span class="maria-date">Thu Apr 30</span><span class="maria-hours">10:00–8:00</span><span class="maria-late-dot" title="Late shift"></span></div>
+        <div style="margin-top:8px;font-size:9px;color:#065F46;display:flex;align-items:center;gap:4px;"><span class="maria-late-dot"></span> = late shift (ends after 5:30pm)</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- SECTION 3: MAY 2026 SUMMARY -->
+<div class="section-wrap">
+  <div class="section-title">May 2026 — Next Month Summary</div>
+  <div class="three-cards">
+
+    <!-- CARD 1: Key Events -->
+    <div class="s3-card">
+      <div class="s3-card-title" style="color:#831843;">Key Events — May 2026</div>
+
+      <div class="s3-week-label">Week of May 1</div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Fri May 1</span>
+        <span class="s3-pill s3-pill-bkg">CD Core Curriculum: ECG Review – Bashore</span>
+        <span class="s3-time">12:00p</span>
+      </div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Fri May 1</span>
+        <span class="s3-pill s3-pill-family">💰 Pay car insurance</span>
+      </div>
+
+      <div class="s3-week-label">Week of May 4</div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Mon May 4</span>
+        <span class="s3-pill s3-pill-family">🌟 May the 4th</span>
+      </div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Tue May 5</span>
+        <span class="s3-pill s3-pill-family">🌿 Cinco de Mayo</span>
+      </div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Tue May 5</span>
+        <span class="s3-pill s3-pill-family">🌿 Lag BaOmer</span>
+      </div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Tue May 5</span>
+        <span class="s3-pill s3-pill-allie">Graduating Fellows Presentations</span>
+        <span class="s3-time">9:30a</span>
+      </div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Wed May 6</span>
+        <span class="s3-pill s3-pill-allie">CDC Biweekly Team Meeting</span>
+        <span class="s3-time">11:30a</span>
+      </div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Wed May 6</span>
+        <span class="s3-pill s3-pill-allie">AHFTC Lecture: HFpEF – Selvaraj</span>
+        <span class="s3-time">4:00p</span>
+      </div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Wed May 6</span>
+        <span class="s3-pill s3-pill-bkg">Imaging Conf: 3D Models – Sturgeon</span>
+        <span class="s3-time">7:00a</span>
+      </div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Wed May 6</span>
+        <span class="s3-pill s3-pill-bkg">Fellows Journal Club</span>
+        <span class="s3-time">10:00a</span>
+      </div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Thu May 7</span>
+        <span class="s3-pill s3-pill-bkg">Heart Listing Conference</span>
+        <span class="s3-time">7:00a</span>
+      </div>
+
+      <div class="s3-week-label">Week of May 11</div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Sun May 10</span>
+        <span class="s3-pill s3-pill-family">🌿 Mother's Day</span>
+      </div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Mon May 11</span>
+        <span class="s3-pill s3-pill-allie">Fellows Seminar – Stats w/ Hong &amp; Niles</span>
+        <span class="s3-time">10:00a</span>
+      </div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Wed May 13</span>
+        <span class="s3-pill s3-pill-allie">NCCHD Internal Stats Meeting</span>
+        <span class="s3-time">2:00p</span>
+      </div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Wed May 13</span>
+        <span class="s3-pill s3-pill-bkg">Imaging Conf: Truncus Arteriosus</span>
+        <span class="s3-time">7:00a</span>
+      </div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Wed May 13</span>
+        <span class="s3-pill s3-pill-bkg">CICU Conference</span>
+        <span class="s3-time">7:20a</span>
+      </div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Thu May 14</span>
+        <span class="s3-pill s3-pill-allie">Allison Levin Mentorship Meeting</span>
+        <span class="s3-time">10:00a</span>
+      </div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Thu May 14</span>
+        <span class="s3-pill s3-pill-bkg">Heart Listing Conference</span>
+        <span class="s3-time">7:00a</span>
+      </div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Thu May 14</span>
+        <span class="s3-pill s3-pill-bkg">Didactic – Fleming: Coarctation/Arch</span>
+        <span class="s3-time">5:30p</span>
+      </div>
+
+      <div class="s3-week-label">Week of May 18</div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Tue May 19</span>
+        <span class="s3-pill s3-pill-allie">CHD STAR2 Clinician Call</span>
+        <span class="s3-time">1:00p</span>
+      </div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Tue May 19</span>
+        <span class="s3-pill s3-pill-allie">Research Topics Monthly – DeVore/Levin</span>
+        <span class="s3-time">3:00p</span>
+      </div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Wed May 20</span>
+        <span class="s3-pill s3-pill-allie">CDC Biweekly Team Meeting</span>
+        <span class="s3-time">11:30a</span>
+      </div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Wed May 20</span>
+        <span class="s3-pill s3-pill-allie">DCRI Fellows Farewell Dinner</span>
+        <span class="s3-time">6:00p</span>
+      </div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Wed May 20</span>
+        <span class="s3-pill s3-pill-bkg">Imaging Conf: HCM</span>
+        <span class="s3-time">7:00a</span>
+      </div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Thu May 21</span>
+        <span class="s3-pill s3-pill-bkg">Heart Listing Conference</span>
+        <span class="s3-time">7:00a</span>
+      </div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Fri May 22</span>
+        <span class="s3-pill s3-pill-family">🌿 Shavuot 2026</span>
+      </div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Fri May 22</span>
+        <span class="s3-pill s3-pill-bkg">SPEAKER: Core Curriculum – Board Prep</span>
+        <span class="s3-time">12:00p</span>
+      </div>
+
+      <div class="s3-week-label">Week of May 25</div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Sun May 24</span>
+        <span class="s3-pill s3-pill-family">🌿 Pentecost 2026</span>
+      </div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Mon May 25</span>
+        <span class="s3-pill s3-pill-family">🏥 Hospital Holiday</span>
+      </div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Mon May 25</span>
+        <span class="s3-pill" style="background:#FEE2E2;color:#991B1B;border:1px solid #FECACA;border-radius:3px;padding:1px 5px;font-size:9.5px;font-weight:600;">⚠ DAYCARE CLOSED</span>
+      </div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Mon May 25</span>
+        <span class="s3-pill s3-pill-family">🌿 Memorial Day</span>
+      </div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Wed May 27</span>
+        <span class="s3-pill s3-pill-allie">NCCHD Internal Stats Meeting</span>
+        <span class="s3-time">2:00p</span>
+      </div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Wed May 27</span>
+        <span class="s3-pill s3-pill-bkg">Imaging Conf: Fetal Advanced Imaging</span>
+        <span class="s3-time">7:00a</span>
+      </div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Wed May 27</span>
+        <span class="s3-pill s3-pill-bkg">CICU Conference</span>
+        <span class="s3-time">7:20a</span>
+      </div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Thu May 28</span>
+        <span class="s3-pill s3-pill-allie">Allison Levin Mentorship Meeting</span>
+        <span class="s3-time">10:00a</span>
+      </div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Thu May 28</span>
+        <span class="s3-pill s3-pill-bkg">Heart Listing Conference</span>
+        <span class="s3-time">7:00a</span>
+      </div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Thu May 28</span>
+        <span class="s3-pill s3-pill-bkg">Didactic – Geoffrion: Ross Procedure</span>
+        <span class="s3-time">5:30p</span>
+      </div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Fri May 29</span>
+        <span class="s3-pill s3-pill-allie">ISHLT ACHD-HF SIG Meeting</span>
+        <span class="s3-time">10:00a</span>
       </div>
     </div>
 
-  </div><!-- end month-sidebar-wrap -->
-</div><!-- end sec-wrap -->
+    <!-- CARD 2: Miguel's Schedule -->
+    <div class="s3-card">
+      <div class="s3-card-title" style="color:#1E3A8A;">Miguel's Schedule — May 2026</div>
 
-<!-- SECTION 3: MAY 2026 SUMMARY -->
-<div class="sec-wrap">
-  <div class="sec-label">🗓 May 2026 — Next Month Summary</div>
-  <div class="next-month-wrap">
+      <div class="s3-week-label">Week of May 1</div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Fri May 1</span>
+        <span class="s3-pill s3-pill-shift">Post Call</span>
+      </div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Fri May 1</span>
+        <span class="s3-pill s3-pill-personal">💰 Pay car insurance</span>
+      </div>
 
-    <!-- CARD 1: KEY EVENTS -->
-    <div class="nm-card">
-      <div class="nm-card-title pink">📌 Key Events — May 2026</div>
+      <div class="s3-week-label">Week of May 4</div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Mon May 4</span>
+        <span class="s3-pill s3-pill-shift">1st Call</span>
+      </div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Mon May 4</span>
+        <span class="s3-pill s3-pill-personal">Allie at Durham</span>
+      </div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Tue May 5</span>
+        <span class="s3-pill s3-pill-shift">Post Call</span>
+      </div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Tue May 5</span>
+        <span class="s3-pill s3-pill-personal">Allie at Durham</span>
+      </div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Tue May 5</span>
+        <span class="s3-pill s3-pill-personal">Credit Report – Experian</span>
+      </div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Wed May 6</span>
+        <span class="s3-pill s3-pill-shift">2nd Call</span>
+      </div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Wed May 6</span>
+        <span class="s3-pill s3-pill-personal">Allie at Durham</span>
+      </div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Thu May 7</span>
+        <span class="s3-pill s3-pill-shift">Float / Available</span>
+      </div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Thu May 7</span>
+        <span class="s3-pill s3-pill-personal">Allie at Durham</span>
+      </div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Fri May 8</span>
+        <span class="s3-pill s3-pill-shift">3rd Call</span>
+      </div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Fri May 8</span>
+        <span class="s3-pill s3-pill-personal">Allie at Durham</span>
+      </div>
 
-      <div class="nm-week-label">Week of May 1</div>
-      <div class="nm-row"><span class="nm-date">Fri May 1</span><div class="nm-content"><span class="nm-pill allie-bkg">CD Core Curriculum: ECG Review</span><span class="nm-time">12pm</span><br><span class="nm-pill family">Need to pay car insurance</span></div></div>
-      <div class="nm-row"><span class="nm-date">Mon May 4</span><div class="nm-content"><span class="nm-pill family">🌟 May the 4th</span></div></div>
-      <div class="nm-row"><span class="nm-date">Tue May 5</span><div class="nm-content"><span class="nm-pill allie-key">Graduating Fellows Presentations</span><span class="nm-time">9:30am</span><br><span class="nm-pill family">🌮 Cinco de Mayo</span><br><span class="nm-pill family">Lag BaOmer</span></div></div>
-      <div class="nm-row"><span class="nm-date">Wed May 6</span><div class="nm-content"><span class="nm-pill allie-key">CDC Biweekly Mtg</span><span class="nm-time">11:30am</span><br><span class="nm-pill allie-key">AHFTC Lecture: HFpEF</span><span class="nm-time">4pm</span><br><span class="nm-pill allie-bkg">Imaging Conf: 3D Models</span><span class="nm-time">7am</span><br><span class="nm-pill allie-bkg">Fellows Journal Club</span><span class="nm-time">10am</span></div></div>
-      <div class="nm-row"><span class="nm-date">Thu May 7</span><div class="nm-content"><span class="nm-pill allie-bkg">Heart Listing Conf</span><span class="nm-time">7am</span></div></div>
-
-      <div class="nm-week-label">Week of May 11</div>
-      <div class="nm-row"><span class="nm-date">Sun May 10</span><div class="nm-content"><span class="nm-pill family">💐 Mother's Day</span></div></div>
-      <div class="nm-row"><span class="nm-date">Mon May 11</span><div class="nm-content"><span class="nm-pill allie-key">Fellows Seminar: Stat Lectures</span><span class="nm-time">10am</span></div></div>
-      <div class="nm-row"><span class="nm-date">Wed May 13</span><div class="nm-content"><span class="nm-pill allie-key">NCCHD Stats Meeting</span><span class="nm-time">2pm</span><br><span class="nm-pill allie-bkg">Imaging Conf: Truncus</span><span class="nm-time">7am</span><br><span class="nm-pill allie-bkg">CICU Conference</span><span class="nm-time">7:20am</span></div></div>
-      <div class="nm-row"><span class="nm-date">Thu May 14</span><div class="nm-content"><span class="nm-pill allie-key">Levin Mentorship Mtg</span><span class="nm-time">10am</span><br><span class="nm-pill allie-bkg">Heart Listing Conf</span><span class="nm-time">7am</span><br><span class="nm-pill allie-bkg">Didactic: Coarctation</span><span class="nm-time">5:30pm</span></div></div>
-      <div class="nm-row"><span class="nm-date">Fri May 15</span><div class="nm-content"><span class="nm-pill family">Pay Bell's Tuition</span></div></div>
-
-      <div class="nm-week-label">Week of May 18</div>
-      <div class="nm-row"><span class="nm-date">Tue May 19</span><div class="nm-content"><span class="nm-pill allie-key">CHD STAR2 Call</span><span class="nm-time">1pm</span><br><span class="nm-pill allie-key">Research Topics Mtg</span><span class="nm-time">3pm</span></div></div>
-      <div class="nm-row"><span class="nm-date">Wed May 20</span><div class="nm-content"><span class="nm-pill allie-key">CDC Biweekly Mtg</span><span class="nm-time">11:30am</span><br><span class="nm-pill allie-key">DCRI Fellows Farewell Dinner</span><span class="nm-time">6pm</span><br><span class="nm-pill allie-bkg">Imaging Conf: HCM</span><span class="nm-time">7am</span></div></div>
-      <div class="nm-row"><span class="nm-date">Thu May 21</span><div class="nm-content"><span class="nm-pill allie-bkg">Heart Listing Conf</span><span class="nm-time">7am</span></div></div>
-      <div class="nm-row"><span class="nm-date">Fri May 22</span><div class="nm-content"><span class="nm-pill family">✡ Shavuot</span><br><span class="nm-pill allie-bkg">Speaker: Board Exam Prep</span><span class="nm-time">12pm</span></div></div>
-
-      <div class="nm-week-label">Week of May 25</div>
-      <div class="nm-row"><span class="nm-date">Sun May 24</span><div class="nm-content"><span class="nm-pill family">✝ Pentecost</span></div></div>
-      <div class="nm-row"><span class="nm-date">Mon May 25</span><div class="nm-content"><span class="nm-pill alert">🚨 DAYCARE CLOSED</span><br><span class="nm-pill family">🇺🇸 Memorial Day</span><br><span class="nm-pill family">Hospital Holiday</span></div></div>
-      <div class="nm-row"><span class="nm-date">Wed May 27</span><div class="nm-content"><span class="nm-pill allie-key">NCCHD Stats Meeting</span><span class="nm-time">2pm</span><br><span class="nm-pill allie-bkg">Imaging Conf: Fetal Adv</span><span class="nm-time">7am</span><br><span class="nm-pill allie-bkg">CICU Conference</span><span class="nm-time">7:20am</span></div></div>
-      <div class="nm-row"><span class="nm-date">Thu May 28</span><div class="nm-content"><span class="nm-pill allie-key">Levin Mentorship Mtg</span><span class="nm-time">10am</span><br><span class="nm-pill allie-bkg">Heart Listing Conf</span><span class="nm-time">7am</span><br><span class="nm-pill allie-bkg">Didactic: Ross Procedure</span><span class="nm-time">5:30pm</span></div></div>
-      <div class="nm-row"><span class="nm-date">Fri May 29</span><div class="nm-content"><span class="nm-pill allie-key">ISHLT ACHD-HF SIG Mtg</span><span class="nm-time">10am</span></div></div>
-    </div>
-
-    <!-- CARD 2: MIGUEL'S SCHEDULE -->
-    <div class="nm-card">
-      <div class="nm-card-title blue">🩺 Miguel's Schedule — May 2026</div>
-
-      <div class="nm-week-label">Week of May 1</div>
-      <div class="nm-row"><span class="nm-date">Fri May 1</span><div class="nm-content"><span class="nm-pill miguel-shift">Post Call</span><br><span class="nm-pill miguel-personal">Pay car insurance</span></div></div>
-
-      <div class="nm-week-label">Week of May 4</div>
-      <div class="nm-row"><span class="nm-date">Mon May 4</span><div class="nm-content"><span class="nm-pill miguel-shift">1st Call</span><br><span class="nm-pill miguel-personal">Allie at Durham</span></div></div>
-      <div class="nm-row"><span class="nm-date">Tue May 5</span><div class="nm-content"><span class="nm-pill miguel-shift">Post Call</span><br><span class="nm-pill miguel-personal">Allie at Durham</span><br><span class="nm-pill miguel-personal">Credit Report: Experian</span></div></div>
-      <div class="nm-row"><span class="nm-date">Wed May 6</span><div class="nm-content"><span class="nm-pill miguel-shift">2nd Call</span><br><span class="nm-pill miguel-personal">Allie at Durham</span></div></div>
-      <div class="nm-row"><span class="nm-date">Thu May 7</span><div class="nm-content"><span class="nm-pill miguel-shift">Float/Available</span><br><span class="nm-pill miguel-personal">Allie at Durham</span></div></div>
-      <div class="nm-row"><span class="nm-date">Fri May 8</span><div class="nm-content"><span class="nm-pill miguel-shift">3rd Call</span><br><span class="nm-pill miguel-personal">Allie at Durham</span></div></div>
-
-      <div class="nm-week-label">Week of May 11</div>
-      <div class="nm-row"><span class="nm-date">Mon May 11</span><div class="nm-content"><span class="nm-pill miguel-shift" style="background:#FEE2E2;color:#991B1B">CCU Shift - Day</span></div></div>
-      <div class="nm-row"><span class="nm-date">Tue May 12</span><div class="nm-content"><span class="nm-pill miguel-shift" style="background:#FEE2E2;color:#991B1B">CCU NBIMC</span></div></div>
-      <div class="nm-row"><span class="nm-date">Wed May 13</span><div class="nm-content"><span class="nm-pill miguel-shift" style="background:#FEE2E2;color:#991B1B">CCU NBIMC</span></div></div>
-      <div class="nm-row"><span class="nm-date">Thu May 14</span><div class="nm-content"><span class="nm-pill miguel-shift">Post Call</span></div></div>
-      <div class="nm-row"><span class="nm-date">Fri May 15</span><div class="nm-content"><span class="nm-pill miguel-shift">2nd Call</span><br><span class="nm-pill miguel-personal">Pay Bell's Tuition</span></div></div>
-
-      <div class="nm-week-label">Week of May 18</div>
-      <div class="nm-row"><span class="nm-date">Mon May 18</span><div class="nm-content"><span class="nm-pill miguel-shift">1st Call</span></div></div>
-      <div class="nm-row"><span class="nm-date">Tue May 19</span><div class="nm-content"><span class="nm-pill miguel-shift">Post Call</span></div></div>
-      <div class="nm-row"><span class="nm-date">Wed May 20</span><div class="nm-content"><span class="nm-pill miguel-shift">Float/Available</span></div></div>
-      <div class="nm-row"><span class="nm-date">Thu May 21</span><div class="nm-content"><span class="nm-pill miguel-shift">Float/Available</span></div></div>
-      <div class="nm-row"><span class="nm-date">Fri May 22</span><div class="nm-content"><span class="nm-pill miguel-shift" style="background:#FEE2E2;color:#991B1B">CCU NBIMC</span></div></div>
-
-      <div class="nm-week-label">Week of May 25</div>
-      <div class="nm-row"><span class="nm-date">Sat May 23</span><div class="nm-content"><span class="nm-pill miguel-shift" style="background:#FEE2E2;color:#991B1B">CCU NBIMC</span></div></div>
-      <div class="nm-row"><span class="nm-date">Sun May 24</span><div class="nm-content"><span class="nm-pill miguel-shift" style="background:#FEE2E2;color:#991B1B">CCU NBIMC</span></div></div>
-      <div class="nm-row"><span class="nm-date">Mon May 25</span><div class="nm-content"><span class="nm-pill miguel-shift" style="background:#FEE2E2;color:#991B1B">CCU NBIMC</span><br><span class="nm-pill alert">🏖 Hospital Holiday</span></div></div>
-      <div class="nm-row"><span class="nm-date">Tue May 26</span><div class="nm-content"><span class="nm-pill miguel-shift">Post Call</span></div></div>
-      <div class="nm-row"><span class="nm-date">Wed May 27</span><div class="nm-content"><span class="nm-pill miguel-personal">Noninvasive Lab</span></div></div>
-      <div class="nm-row"><span class="nm-date">Thu May 28</span><div class="nm-content"><span class="nm-pill miguel-shift">3rd Call</span></div></div>
-      <div class="nm-row"><span class="nm-date">Fri May 29</span><div class="nm-content"><span class="nm-pill miguel-shift">Float/Available</span></div></div>
-      <div class="nm-row"><span class="nm-date">Sat May 30</span><div class="nm-content"><span class="nm-pill family">🎂 Ezra's Birthday!</span></div></div>
-    </div>
-
-    <!-- CARD 3: MARIA MAY -->
-    <div class="nm-card">
-      <div class="nm-card-title teal">👩 Maria's Schedule — May 2026</div>
-      <div class="nm-empty">No Maria shifts on file for May 2026 yet.<br>Check back when schedule is updated.</div>
-    </div>
-
-  </div><!-- end next-month-wrap -->
-</div><!-- end sec-wrap -->
-
-<div style="text-align:center;font-size:10px;color:#9CA3AF;padding:10px 0 20px;border-top:1px dashed #E4E0D8;margin-top:8px">
-  Yaport–Levin Family Dashboard · Generated Saturday, April 4, 2026 · Auto-updates twice daily
-</div>
-
-</div><!-- end wrap -->
-</body>
-</html>
+      <div class="s3-week-label">Week of May 11 — CCU Block</div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Mon May 11</span>
+        <span class="s3-pill" style="background:#FEE2E2;color:#991B1B;border-radius:3px;padding:1px 5px;font-size:9.5px;font-weight:600;">CCU Shift – Day</span>
+      </div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Tue May 12</span>
+        <span class="s3-pill" style="background:#FEE2E2;color:#991B1B;border-radius:3px;padding:1px 5px;font-size:9.5px;font-weight:600;">CCU Shift – Day</span>
+      </div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Wed May 13</span>
+        <span class="s3-pill" style="background:#FEE2E2;color:#991B1B;border-radius:3px;padding:1px 5px;font-size:9.5px;font-weight:600;">CCU Shift – Day</span>
+      </div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Thu May 14</span>
+        <span class="s3-pill s3-pill-shift">Post Call</span>
+      </div>
+      <div class="s3-item">
+        <span class="s3-date-badge">Fri May 15</span>
+        <span class="s3-pill s3-pill-shift">2nd Call</span>
+      </div>
+      <div class="s3-item">
+        <span
